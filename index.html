@@ -246,7 +246,7 @@ html.js.motore-ko #nomotore{display:block}
 <header class="hero">
   <div class="kicker">Strumento · Fibrillazione atriale · ESC 2024</div>
   <h1 class="headline">Cardioversione della FA: quando, con quale anticoagulante, con quale farmaco</h1>
-  <p class="lede"><strong>Come si usa.</strong> I passi 1 e 2 dicono stabilità, durata dell'episodio, anticoagulante in corso ed ETE: il passo 3 ripercorre la <strong>Fig. 12</strong> ramo per ramo — elettrica subito, cardioversione, ETE, attesa o tre settimane — con le classi della Recommendation Table 15. Il passo 4 dice l'<strong>anticoagulante prima e dopo</strong> (molecola e dose del DOAC stanno nella scheda della FA, sezione 5, e nel Tool OAC FA). I passi 5 e 6 portano rene e cuore: ne esce, al passo 7, il <strong>farmaco con la dose della Tab. 13</strong>, il rene e la disponibilità in Italia. Un campo vuoto dà «—» e la ragione. <strong>Azzera</strong>, in alto, ricomincia.</p>
+  <p class="lede"><strong>Come si usa.</strong> I passi 1 e 2 dicono stabilità, durata dell'episodio, anticoagulante in corso ed ETE: il passo 3 ripercorre la <strong>Fig. 12</strong> ramo per ramo — elettrica subito, cardioversione, ETE, attesa o tre settimane — con le classi della Recommendation Table 15. Il passo 4 dice l'<strong>anticoagulante prima e dopo</strong> (molecola e dose del DOAC stanno nella scheda della FA, sezione 5, e nel Tool OAC FA). I passi 5 e 6 portano rene, cuore e pre-eccitazione: ne esce, al passo 7, il <strong>farmaco con la dose della Tab. 13</strong>, il rene e la disponibilità in Italia. Un campo vuoto dà «—» e la ragione. <strong>Azzera</strong>, in alto, ricomincia.</p>
   <div class="meta-row">
     <span class="meta-chip"><strong>Fonte</strong> 2024 ESC Guidelines for the management of atrial fibrillation, developed in collaboration with EACTS</span>
     <span class="meta-chip"><strong>Calcolo</strong> Fig. 12, p. 3354 · Rec. Table 15, p. 3355 · Rec. Table 17, p. 3356 · Tab. 13, p. 3357 · Rec. Table 6, p. 3342</span>
@@ -356,6 +356,7 @@ html.js.motore-ko #nomotore{display:block}
   <label class="chk"><input type="checkbox" id="seno"><span class="tx">Disfunzione del nodo del seno</span></label>
   <label class="chk"><input type="checkbox" id="av"><span class="tx">Disturbi della conduzione atrioventricolare</span></label>
   <div class="riga" style="margin-top:4px"><span class="fl">QTc<small>ms</small></span><input type="text" autocomplete="off" id="qtc" min="250" max="800" step="1" inputmode="numeric" placeholder="ms"></div>
+  <label class="chk"><input type="checkbox" id="wpw"><span class="tx">Pre-eccitazione: sindrome di Wolff-Parkinson-White, FA preeccitata<small>sull'ECG di base o documentata: con la casella accesa la strada dell'anticoagulante resta, ma lo strumento non propone un farmaco per convertire; amiodarone e.v. III B (ESC 2019 TSV, p. 691)</small></span></label>
   <label class="chk" style="margin-top:6px;border-top:1px solid var(--border-strong);padding-top:9px"><input type="checkbox" id="valutati"><span class="tx"><b>Ho valutato tutte queste condizioni</b><small>quelle non segnate sono assenti: senza questa conferma lo strumento non nomina un farmaco</small></span></label>
 </div>
 
@@ -367,6 +368,7 @@ html.js.motore-ko #nomotore{display:block}
   <div class="passo"><span class="ico">·</span><span class="tx">Sicura in elezione e in acuto, in sedazione e.v. con <b>midazolam, propofol o etomidate</b>; pressione e ossimetria sempre; <b>atropina o isoproterenolo e.v.</b>, o pacing transcutaneo, pronti per la bradicardia dopo lo shock <span class="pg">ESC 2024, p. 3356</span>.</span></div>
   <div class="passo"><span class="ico">·</span><span class="tx">Defibrillatore <b>bifasico</b>; elettrodi antero-posteriori o antero-laterali si equivalgono; la <b>compressione attiva</b> delle piastre abbassa la soglia; gli shock a <b>energia massima fissa</b> funzionano meglio di quelli a energia bassa crescente <span class="pg">ESC 2024, p. 3356</span>.</span></div>
   <div class="passo"><span class="ico">·</span><span class="tx">Per facilitarla: vernakalant subito prima, oppure 3–4 giorni di flecainide, ibutilide, propafenone o amiodarone; per l'amiodarone <b>200–800 mg/die per 1–6 settimane</b> prima e <b>200 mg/die</b> dopo <span class="pg">ESC 2024, p. 3356</span>. Rene dell'amiodarone: nessun aggiustamento, escrezione renale trascurabile (scheda tecnica di amiodarone, 5.2).</span></div>
+  <div id="outElet"></div>
   <div class="passo"><span class="ico">·</span><span class="tx">Come <b>strumento diagnostico</b> nella FA persistente, quando non è chiaro se il ritmo sinusale migliori i sintomi o la funzione del VS <span class="cor c2a">IIa</span> <span class="cor c2a" style="opacity:.85">C</span> <span class="pg">ESC 2024, Rec. Table 16, p. 3356</span>.</span></div>
 </div>
 
@@ -374,7 +376,7 @@ html.js.motore-ko #nomotore{display:block}
 <div class="card"><h3>Limiti per questo paziente</h3><ul class="lista" id="limiti"></ul></div>
 
 <div class="foot">
-  <strong>Fonte.</strong> Van Gelder IC, Rienstra M, Bunting KV, et al. 2024 ESC Guidelines for the management of atrial fibrillation developed in collaboration with the European Association for Cardio-Thoracic Surgery (EACTS). <em>Eur Heart J</em> 2024;45:3314–3414, doi:10.1093/eurheartj/ehae176, nella versione corretta (Eur Heart J 2025;46:4349) — la strada della cardioversione (Fig. 12, p. 3354), principi del controllo del ritmo (Rec. Table 15, p. 3355, e testo, pp. 3353 e 3355), cardioversione elettrica (§ 7.2.2 e Rec. Table 16, p. 3356), cardioversione farmacologica (Rec. Table 17, p. 3356), dosi e controindicazioni (Tab. 13, p. 3357), CHA₂DS₂-VA (Tab. 10 e Rec. Table 6, p. 3342), DOAC e AVK (Rec. Table 7, p. 3344), il percorso della prima diagnosi (Fig. 4, p. 3334), l'amiodarone per la frequenza (Tab. 12, p. 3353). Schede tecniche lette il 03/10/2026: flecainide compresse e fiale, propafenone, ibutilide e due prodotti di amiodarone (AIFA); vernakalant (EMA). Disponibilità in Italia: Banca dati farmaci AIFA, 03/10/2026. Ogni numero mostrato porta la sua pagina.<br><br>
+  <strong>Fonte.</strong> Van Gelder IC, Rienstra M, Bunting KV, et al. 2024 ESC Guidelines for the management of atrial fibrillation developed in collaboration with the European Association for Cardio-Thoracic Surgery (EACTS). <em>Eur Heart J</em> 2024;45:3314–3414, doi:10.1093/eurheartj/ehae176, nella versione corretta (Eur Heart J 2025;46:4349) — la strada della cardioversione (Fig. 12, p. 3354), principi del controllo del ritmo (Rec. Table 15, p. 3355, e testo, pp. 3353 e 3355), cardioversione elettrica (§ 7.2.2 e Rec. Table 16, p. 3356), cardioversione farmacologica (Rec. Table 17, p. 3356), dosi e controindicazioni (Tab. 13, p. 3357), CHA₂DS₂-VA (Tab. 10 e Rec. Table 6, p. 3342), DOAC e AVK (Rec. Table 7, p. 3344), il percorso della prima diagnosi (Fig. 4, p. 3334), l'amiodarone per la frequenza (Tab. 12, p. 3353); per la pre-eccitazione la FA preeccitata (pp. 3370–3371), la nota a della Tab. 12 (p. 3353), la gravidanza (Rec. Table 28, p. 3369). <strong>Pre-eccitazione</strong>: Brugada J, Katritsis DG, Arbelo E, et al. 2019 ESC Guidelines for the management of patients with supraventricular tachycardia. <em>Eur Heart J</em> 2020;41:655–720, doi:10.1093/eurheartj/ehz467 — FA preeccitata: cardioversione, farmaci da non dare e ablazione (pp. 690–692). Schede tecniche lette il 03/10/2026: flecainide compresse e fiale, propafenone, ibutilide e due prodotti di amiodarone (AIFA); vernakalant (EMA); per la pre-eccitazione, amiodarone e.v. 4.1 e 4.3 (AIFA, testo reso disponibile il 25/09/2024), riletta il 07/11/2026. Disponibilità in Italia: Banca dati farmaci AIFA, 03/10/2026; procainamide, 05/11/2026. Ogni numero mostrato porta la sua pagina.<br><br>
   Strumento personale di studio e consultazione: <strong>non sostituisce il giudizio clinico né la scheda tecnica del farmaco</strong>. Non salva i dati e non li invia in rete.
 </div>
 </div>
@@ -421,7 +423,40 @@ html.js.motore-ko #nomotore{display:block}
      Schede tecniche (03/10/2026): flecainide 4.2 (bolo e.v. al massimo 150 mg,
        600 mg nelle 24 h; ClCr <=35: ogni dose e.v. dimezzata, per os 100
        mg/die); propafenone 4.2 e 4.4; vernakalant 4.1-4.3; ibutilide 4.2;
-       amiodarone 5.2. */
+       amiodarone 5.2.
+     Pre-eccitazione (casella del passo 6, 07/11/2026; decisione del medico
+       del 07/11/2026, capitolo 15). 2019 ESC Guidelines for the management
+       of patients with supraventricular tachycardia — p. 690: nella FA
+       preeccitata di solito serve una cardioversione urgente, con una soglia
+       piu' bassa per l'elettrica (nessuna delle due linee guida parla
+       dell'attesa della conversione spontanea nella FA preeccitata: con la
+       casella accesa la risposta «puo' aspettare» del passo 2 vale «no»,
+       cioe' cardioversione precoce, con l'ETE se serve, e la nota dice
+       perche' — scelta del medico 10, 07/11/2026); i farmaci che
+       modulano il nodo AV vanno evitati nella FA preeccitata (rischio di FV);
+       riga III B: digossina, betabloccanti, diltiazem, verapamil e amiodarone
+       non raccomandati e potenzialmente dannosi nella FA preeccitata.
+       p. 691, terapia acuta della FA preeccitata: instabile, cardioversione
+       elettrica sincronizzata I B; stabile, ibutilide o procainamide e.v.
+       IIa B, flecainide o propafenone e.v. IIb B, elettrica se i farmaci non
+       bastano I B, amiodarone e.v. III B; ibutilide controindicata con QTc
+       lungo, IC e.v. con cardiopatia ischemica o strutturale. p. 692: gli IC
+       con cautela, agiscono anche sul nodo AV e possono non convertire;
+       amiodarone e.v. meno sicuro di quanto si pensava (conduzione accresciuta
+       sulla via, FV); ablazione della via terapia di scelta, nel testo, senza
+       riga di classe. ESC 2024 — pp. 3370-3371: cardioversione elettrica
+       immediata se compromessa; niente farmaci sul nodo AV; farmacologica con
+       ibutilide o flecainide, propafenone con cautela; amiodarone da evitare
+       (azione ritardata). Tab. 12 nota a, p. 3353: tutti i farmaci della
+       frequenza controindicati nella WPW, anche l'amiodarone e.v. Rec. Table
+       28, p. 3369: in gravidanza elettrica immediata nella FA preeccitata I C.
+       Vernakalant: nessuna delle due la nomina nella FA preeccitata.
+       L'anticoagulante: nessuna delle due cambia la sua strada nella FA
+       preeccitata, e il CHA2DS2-VA non conta la preeccitazione (Tab. 10, p.
+       3342): lo strumento la lascia com'e' (lettura dello strumento).
+       Scheda tecnica dell'amiodarone e.v. (4.1, 4.3): nessuna
+       controindicazione, fra le indicazioni le tachicardie reciprocanti della
+       WPW; lo strumento segue le linee guida. */
   var SOGLIE = { bmiAgg:30, reneIC:35, ibuDati:21, ibuPeso:60, qtcIII:500 };
   var DOSI = {
     flecEV:[1, 2], flecBolo:150,          // Tab. 13 · tetto del bolo: scheda tecnica 4.2
@@ -508,9 +543,13 @@ html.js.motore-ko #nomotore{display:block}
     if (o.ok) return { cod:"elettiva", oac:o };
     if (!s.attesa) return { cod:null, perche:"serve sapere se la cardioversione può aspettare (passo 2)", oac:o };
     if (!s.durata) return { cod:null, perche:"serve la durata dell'episodio (passo 1)", oac:o };
-    if (s.attesa === "si") return { cod:s.durata === "gt48" ? "tre_sett" : "attesa", oac:o };
-    if (s.durata === "lt24") return { cod:"precoce", oac:o };
-    return { cod:s.ete === "pulita" ? "ete" : "serve_ete", oac:o };
+    // Pre-eccitazione: «puo' aspettare» vale «no» (ESC 2019 TSV, p. 690: nella FA
+    // preeccitata di solito serve una cardioversione urgente) — scelta del medico
+    // 10, 07/11/2026. La strada passa dalla cardioversione precoce, o dall'ETE.
+    var attNo = !!(s.wpw && s.attesa === "si");
+    if (s.attesa === "si" && !attNo) return { cod:s.durata === "gt48" ? "tre_sett" : "attesa", oac:o };
+    if (s.durata === "lt24") return { cod:"precoce", oac:o, attNo:attNo };
+    return { cod:s.ete === "pulita" ? "ete" : "serve_ete", oac:o, attNo:attNo };
   }
 
   function dopo(s) {
@@ -530,7 +569,14 @@ html.js.motore-ko #nomotore{display:block}
     return o;
   }
 
+  // Pre-eccitazione: la regola governa il passo prima di tutto il resto —
+  // emodinamica, conferma delle condizioni, QTc —, perche' una casella accesa
+  // e' un dato positivo. Le classi della Rec. Table 17 e le dosi della Tab. 13
+  // lo strumento non le applica alla FA preeccitata, che la ESC 2024 tratta a
+  // parte (pp. 3370-3371) e la ESC 2019 con classi sue (p. 691): con la casella
+  // nessun farmaco e' proposto.
   function farmaci(s, rn) {
+    if (s.wpw) return { stato:"wpw", emo:s.emo || null, am:!!(s.ivs || s.hfref || s.cad || s.sca) };
     if (!s.emo) return { stato:null, perche:"serve la stabilità emodinamica (passo 1)" };
     if (s.emo === "instabile") return { stato:"instabile" };
     if (!s.valutati) return { stato:null, perche:"conferma le condizioni del passo 6" };
@@ -598,11 +644,13 @@ html.js.motore-ko #nomotore{display:block}
   function italia(x) { return '<div class="muted" style="font-size:12.5px;margin:0 0 4px">In Italia (Banca dati AIFA, 03/10/2026): ' + x + "</div>"; }
   var F12 = "ESC 2024, Fig. 12, p. 3354", R15 = "ESC 2024, Rec. Table 15, p. 3355", P55 = "ESC 2024, p. 3355", P53 = "ESC 2024, p. 3353",
       R17 = "ESC 2024, Rec. Table 17, p. 3356", P56 = "ESC 2024, p. 3356", T13 = "ESC 2024, Tab. 13, p. 3357", R6 = "ESC 2024, Rec. Table 6, p. 3342",
-      T10 = "ESC 2024, Tab. 10, p. 3342", R7 = "ESC 2024, Rec. Table 7, p. 3344", F4 = "ESC 2024, Fig. 4, p. 3334", T12 = "ESC 2024, Tab. 12, p. 3353";
+      T10 = "ESC 2024, Tab. 10, p. 3342", R7 = "ESC 2024, Rec. Table 7, p. 3344", F4 = "ESC 2024, Fig. 4, p. 3334", T12 = "ESC 2024, Tab. 12, p. 3353",
+      T12a = "ESC 2024, Tab. 12, nota a, p. 3353", P7071 = "ESC 2024, pp. 3370–3371", P71 = "ESC 2024, p. 3371", R28 = "ESC 2024, Rec. Table 28, p. 3369",
+      V690 = "ESC 2019 TSV, p. 690", V691 = "ESC 2019 TSV, p. 691", V692 = "ESC 2019 TSV, p. 692", V6902 = "ESC 2019 TSV, pp. 690–692";
   var FONTI = { R17:R17, T13:T13, STIC:"schede tecniche di flecainide e propafenone, 4.3" };
 
   function S() {
-    var ids = ["ader", "ivs", "hfref", "cad", "sca", "sa", "nyha", "pas", "brugada", "tiro", "qtl", "seno", "av", "valutati"], s = {}, i;
+    var ids = ["ader", "ivs", "hfref", "cad", "sca", "sa", "nyha", "pas", "brugada", "tiro", "qtl", "seno", "av", "wpw", "valutati"], s = {}, i;
     for (i = 0; i < ids.length; i++) s[ids[i]] = ckv(ids[i]);
     s.inr = num("inr"); s.cha = num("cha"); s.eta = num("eta"); s.peso = num("peso"); s.alt = num("alt"); s.creat = num("creat"); s.egfr = num("egfr"); s.qtc = num("qtc");
     s.emo = radio("emo"); s.durata = radio("durata"); s.oac = radio("oac"); s.sett = radio("sett"); s.valv = radio("valv"); s.attesa = radio("attesa"); s.ete = radio("ete") || "no";
@@ -669,6 +717,21 @@ html.js.motore-ko #nomotore{display:block}
       h += passo("ETE senza trombi: <b>cardioversione farmacologica o elettrica</b> " + corPill("I", "B") + pgs(R15 + "; " + F12) + ".", true);
       h += passo("Dopo, l'ultimo passo (passo 4)" + pgs(F12) + ".");
     }
+    if (s.wpw) {
+      if (st.cod === "urgente") h += passo("<b>FA preeccitata</b> con compromissione emodinamica: la cardioversione elettrica immediata vale anche qui" + pgs(P7071) + "; sincronizzata, " + corPill("I", "B") + pgs(V691) + ".");
+      // Ricontrollo indipendente e scelta del medico 10 (07/11/2026): la ESC 2019
+      // dice che nella FA preeccitata di solito serve una cardioversione urgente
+      // (p. 690), e nessuna delle due linee guida parla dell'attesa nella FA
+      // preeccitata. Con la casella, «puo' aspettare» vale «no» (strada(): attNo);
+      // accanto all'elettiva l'attesa resta mostrata, con la nota.
+      var ATT = "<b>FA preeccitata e attesa.</b> Per la ESC 2019 nella FA preeccitata di solito serve una cardioversione urgente, e la soglia per quella elettrica è più bassa" + pgs(V690) + ". ",
+          NESS = pgs(V6902 + "; " + P7071);
+      if (st.attNo)
+        h += nota("stop", ATT + "Al passo 2 è segnato che la cardioversione può aspettare: con la pre-eccitazione lo strumento lo legge «no» (scelta del medico, 07/11/2026), e la strada della Fig. 12 diventa " + (st.cod === "precoce" ? "la cardioversione precoce" : "quella dell'ETE prima della cardioversione") + pgs(F12) + ". L'attesa della conversione spontanea" + pgs(R15) + " è per la FA senza compromissione emodinamica, e nessuna delle due linee guida la considera nella FA preeccitata" + NESS + ".");
+      else if (st.cod === "elettiva" && (s.durata === "lt24" || s.durata === "h24_48"))
+        h += nota("stop", ATT + "L'attesa della conversione spontanea" + pgs(R15) + ", qui accanto alla cardioversione, è per la FA senza compromissione emodinamica, e nessuna delle due linee guida la considera nella FA preeccitata" + NESS + ": lo strumento la mostra, ma con la pre-eccitazione la fonte non la sostiene. Lettura dello strumento.");
+      h += passo("<b>Pre-eccitazione</b>: la strada dell'anticoagulante resta questa. È una lettura dello strumento: nessuna delle due linee guida la cambia nella FA preeccitata" + pgs(P7071 + "; " + V6902) + ", e il CHA₂DS₂-VA non conta la preeccitazione" + pgs(T10) + ". Il farmaco per convertire: passo 7.");
+    }
     return h;
   }
 
@@ -712,9 +775,37 @@ html.js.motore-ko #nomotore{display:block}
     return t.join("; ");
   }
 
+  // Pre-eccitazione: che cosa dicono le fonti, senza proporre un farmaco né una dose.
+  function farmWpw(f) {
+    var h = "";
+    var NODO = "Nella FA preeccitata digossina, betabloccanti, diltiazem, verapamil e amiodarone non sono raccomandati e possono nuocere " + corPill("III", "B") + pgs(V690) + "; i farmaci che agiscono sul nodo AV vanno evitati, perché possono contribuire al rischio di FV" + pgs(V690 + "; " + P71) + ", e la ESC 2024 controindica nella WPW tutti i farmaci della frequenza, anche l'amiodarone e.v." + pgs(T12a) + ".";
+    var AMIO = "<b>Amiodarone e.v.</b>: non raccomandato " + corPill("III", "B") + pgs(V691) + ", perché sono state riportate una conduzione accresciuta sulla via accessoria e la FV" + pgs(V692) + "; la ESC 2024 lo evita per l'azione ritardata" + pgs(P71) + "." +
+      (f.am ? " Vale anche con ipertrofia severa, HFrEF o coronaropatia, dove senza la casella lo strumento lo propone" + pgs(R17) + ": nella FA preeccitata la stessa ESC 2024 lo evita" + pgs(P71) + "." : "") +
+      " La scheda tecnica non lo controindica, e fra le indicazioni ha le tachicardie reciprocanti della WPW (scheda tecnica di amiodarone, 4.1, 4.3): lo strumento segue le linee guida, la lettura più prudente.";
+    var DOVE = "Dove andare: <b>scheda 15</b>, tachicardie sopraventricolari, sezione 14" + pgs(V6902) + ", e il <b>Tool FA preeccitata</b> del capitolo 15. La terapia di scelta della FA preeccitata è l'<b>ablazione della via accessoria</b>" + pgs(V692) + ": lo dice il testo, senza una riga di classe.";
+    if (f.emo === "instabile") {
+      h += nota("spenta", "Instabile: la cardioversione è <b>elettrica</b> " + corPill("I", "C") + pgs(R15) + "; quella farmacologica è una procedura elettiva del paziente emodinamicamente stabile" + pgs(P56) + ".");
+      h += passo("<b>FA preeccitata</b> con compromissione emodinamica: <b>cardioversione elettrica immediata</b>" + pgs(P7071) + "; sincronizzata, " + corPill("I", "B") + pgs(V691) + ".", true);
+      h += passo(NODO);
+      h += passo(AMIO);
+      return h + passo(DOVE);
+    }
+    h += esito('<span class="big">Pre-eccitazione: nessun farmaco proposto</span>' + chip("k4", "FA preeccitata"));
+    h += nota("stop", "<b>Lo strumento non propone un farmaco per convertire.</b> Le classi della Rec. Table 17 e le dosi della Tab. 13" + pgs(R17 + "; " + T13) + " qui non le applica: la ESC 2024 tratta a parte la FA preeccitata" + pgs(P7071) + ", e la ESC 2019 le dà classi sue" + pgs(V691) + ". " + NODO + " Non vale nemmeno la regola della Tab. 13 che affianca a flecainide e propafenone un farmaco che blocca il nodo AV, contro il flutter 1:1" + pgs(T13) + ".");
+    h += passo("Con compromissione emodinamica: <b>cardioversione elettrica immediata</b>" + pgs(P7071) + "; sincronizzata, " + corPill("I", "B") + pgs(V691) + ". In gravidanza la FA preeccitata va alla cardioversione elettrica immediata anche senza instabilità " + corPill("I", "C") + pgs(R28) + ": la gravidanza resta fuori da questo strumento.", true);
+    h += passo("Da stabile, la ESC 2019: <b>ibutilide o procainamide e.v.</b> " + corPill("IIa", "B") + "; <b>flecainide o propafenone e.v.</b> " + corPill("IIb", "B") + "; se i farmaci non la convertono né la controllano, <b>cardioversione elettrica sincronizzata</b> " + corPill("I", "B") + pgs(V691) + ". L'ibutilide è controindicata con il QTc lungo, flecainide e propafenone e.v. con una cardiopatia ischemica o strutturale" + pgs(V691) + ".");
+    h += passo("La ESC 2024: la cardioversione farmacologica si può tentare con ibutilide o flecainide, il propafenone con cautela per l'effetto sul nodo AV" + pgs(P71) + ". Anche la ESC 2019 vuole cautela con gli IC, che agiscono pure sul nodo AV e possono non riportare il ritmo sinusale" + pgs(V692) + ".");
+    h += '<div class="muted" style="font-size:12.5px;margin:4px 0">In Italia (Banca dati AIFA): flecainide fiale in commercio; propafenone e.v. <b>non più in commercio dal 31/01/2025</b>; ibutilide <b>non più in commercio dal 31/08/2026</b> (03/10/2026); procainamide <b>non in commercio</b>, nessun prodotto (05/11/2026).</div>';
+    h += passo(AMIO);
+    h += passo("<b>Vernakalant</b>: nessuna delle due linee guida lo nomina nella FA preeccitata" + pgs(V6902 + "; " + P7071) + ": lo strumento non lo propone.");
+    h += passo("Lo strumento non dà le dosi: con la pre-eccitazione il farmaco e la dose sono della scheda 15 e del Tool FA preeccitata.");
+    return h + passo(DOVE);
+  }
+
   function disegnaFarm(s, rn, st, f) {
     var h = "", p = s.peso;
     if (f.stato === null) return esito(chip("kx", "farmaco —") + muted(f.perche));
+    if (f.stato === "wpw") return farmWpw(f);
     if (f.stato === "instabile") return nota("spenta", "Instabile: la cardioversione è <b>elettrica</b> " + corPill("I", "C") + pgs(R15) + "; quella farmacologica è una procedura elettiva del paziente emodinamicamente stabile" + pgs(P56) + ".");
     if (f.stato === "iiic") return esito('<span class="big">Nessun farmaco</span>' + corPill("III", "C")) + nota("stop", "<b>Cardioversione farmacologica non raccomandata</b> " + corPill("III", "C") + pgs(R17) + ": " + f.motivi.join("; ") + " — a meno di aver pesato i rischi di proaritmia e di bradicardia. Lo strumento non propone un farmaco: «—».");
     var nonOra = { trombo:1, serve_ete:1, tre_sett:1, attesa:1 };
@@ -802,6 +893,7 @@ html.js.motore-ko #nomotore{display:block}
     el("outDopo").innerHTML = disegnaDopo(s, d);
     el("outRene").innerHTML = disegnaRene(s, rn);
     el("outFarm").innerHTML = disegnaFarm(s, rn, st, f);
+    el("outElet").innerHTML = s.wpw ? nota("stop", "<b>Pre-eccitazione</b>: la riga qui sopra sui farmaci che facilitano la cardioversione non vale per la FA preeccitata. L'amiodarone vi è " + corPill("III", "B") + pgs(V690) + ", e nella FA preeccitata le due linee guida non parlano di farmaci per facilitare la cardioversione elettrica" + pgs(V6902 + "; " + P7071) + ".") : "";
 
     /* incoerenze */
     function inc(tocca, x) { return nota(tocca ? "" : "spenta", (tocca ? "<b>Tocca questo caso.</b> " : "") + x); }
@@ -823,7 +915,9 @@ html.js.motore-ko #nomotore{display:block}
     lim.push("Clearance di Cockcroft-Gault sul <b>peso reale</b>, che decide; con BMI ≥30 accanto il valore sul peso aggiustato (ideale di Devine + 0,4 × l'eccesso), con un avviso se i due cadono ai lati di una soglia (decisione del medico, 03/10/2026). Le dosi per peso usano il peso reale.");
     lim.push("Cardiopatia, conduzione e QT li valuta chi compila. Scelte dello strumento: la SCA dell'ultimo mese conta come coronaropatia; la stenosi aortica severa è una cardiopatia strutturale severa per gli IC (Tab. 13); lo scompenso NYHA III–IV esclude gli IC per le schede tecniche (lettura prudente).");
     lim.push("Le 3 settimane con l'AVK si contano sull'INR più basso: la fonte dice «INR ≥2,0» senza dire quante misure, e lo strumento le considera terapeutiche se lo è ogni misura.");
-    lim.push("Flutter atriale: la strada dell'anticoagulante vale anche per lui (Rec. Table 15), ma flecainide e propafenone <b>mai</b> per convertirlo (Tab. 13). Gravidanza e FA pre-eccitata: fuori da questo strumento.");
+    lim.push("Flutter atriale: la strada dell'anticoagulante vale anche per lui (Rec. Table 15), ma flecainide e propafenone <b>mai</b> per convertirlo (Tab. 13).");
+    lim.push("Gravidanza: fuori da questo strumento.");
+    lim.push("Pre-eccitazione (WPW, FA preeccitata): si segna nella sua casella del passo 6. Lo strumento presume che sia stata cercata sull'ECG di base: la casella vuota vale «assente» solo con la conferma del passo 6, e senza quella lo strumento non nomina un farmaco. Con la casella accesa la strada dell'anticoagulante resta e nessun farmaco per convertire è proposto (ESC 2019 TSV, pp. 690–692; ESC 2024, pp. 3370–3371): scheda 15, sezione 14. E la risposta «può aspettare» del passo 2 vale «no»: cardioversione precoce, con l'ETE se serve (ESC 2019 TSV, p. 690; scelta del medico, 07/11/2026).");
     lim.push("Disponibilità in Italia al 03/10/2026 (Banca dati AIFA): flecainide fiale sì; propafenone e.v. cessato il 31/01/2025; vernakalant autorizzato, mai commercializzato; ibutilide cessata il 31/08/2026; amiodarone e.v., un prodotto cessato il 30/11/2025, altri in commercio.");
     if (rn.cl.reale !== null && s.alt === null) lim.push("Altezza non indicata: il BMI non si calcola, e nell'obeso manca il valore sul peso aggiustato.");
     el("limiti").innerHTML = "<li>" + lim.join("</li><li>") + "</li>";
@@ -835,7 +929,10 @@ html.js.motore-ko #nomotore{display:block}
     bar("barDopo", L.si === null ? "kx" : "k1", L.si === null ? "OAC ≥4 sett. · poi —" : (L.si ? "OAC ≥4 sett. + lungo termine" : "OAC ≥4 sett."));
     var nomi = [];
     if (okF) { if (f.ic.ok) nomi.push("flecainide · propafenone"); if (f.ve.ok) nomi.push("vernakalant"); if (f.am.indicato) nomi.push("amiodarone"); }
-    bar("barFarm", f.stato === "iiic" ? "k4" : (okF ? (nomi.length ? "k1" : "k3") : "kx"), f.stato === "iiic" ? "III C" : (f.stato === "instabile" ? "elettrica" : (okF ? (nomi.length ? nomi.join(" · ") : "nessuno con classe") : "—")));
+    // Pre-eccitazione: non «nessuno», perché la ESC 2019 non vieta gli IC né l'ibutilide
+    // nella FA preeccitata (p. 691): la scelta è fuori da questo strumento.
+    if (f.stato === "wpw") bar("barFarm", f.emo === "instabile" ? "kx" : "k4", f.emo === "instabile" ? "elettrica" : "fuori dallo strumento: preeccitazione");
+    else bar("barFarm", f.stato === "iiic" ? "k4" : (okF ? (nomi.length ? "k1" : "k3") : "kx"), f.stato === "iiic" ? "III C" : (f.stato === "instabile" ? "elettrica" : (okF ? (nomi.length ? nomi.join(" · ") : "nessuno con classe") : "—")));
     var rr = rn.cl.reale;
     bar("barRene", rr !== null ? (r1(rr) < 35 ? "k4" : (r1(rr) <= 35 ? "k3" : "k1")) : (rn.egfr !== null ? (rn.egfr < 35 ? "k4" : "k1") : "kx"), rr !== null ? "ClCr " + nf(rr, 1) : (rn.egfr !== null ? "eGFR " + nf(rn.egfr, 0) : "—"));
   }

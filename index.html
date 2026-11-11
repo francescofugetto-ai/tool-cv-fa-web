@@ -250,7 +250,8 @@ html.js.motore-ko #nomotore{display:block}
   <div class="meta-row">
     <span class="meta-chip"><strong>Fonte</strong> 2024 ESC Guidelines for the management of atrial fibrillation, developed in collaboration with EACTS</span>
     <span class="meta-chip"><strong>Calcolo</strong> Fig. 12, p. 3354 · Rec. Table 15, p. 3355 · Rec. Table 17, p. 3356 · Tab. 13, p. 3357 · Rec. Table 6, p. 3342</span>
-    <span class="meta-chip"><strong>Rene e dosi fuori fonte</strong> schede tecniche lette il 03/10/2026</span>
+    <span class="meta-chip"><strong>Rene e dosi fuori fonte</strong> schede tecniche lette il 03/10/2026, rilette l'08/11/2026</span>
+    <span class="meta-chip"><strong>Sindrome del QT lungo</strong> ESC 2022, Tab. 8, pp. 4035–4036, Rec. Table 41, p. 4077 · ESC 2024, Tab. S6, supplementare, p. 12</span>
   </div>
 </header>
 
@@ -261,6 +262,7 @@ html.js.motore-ko #nomotore{display:block}
   <span class="lbl">Rene</span> <span id="barRene" class="cat kx">—</span>
   <span class="sp"></span>
   <button class="btn" id="azzera" type="button">Azzera</button>
+  <div id="rigaEta" class="hide" style="flex:1 1 100%"></div>
 </div>
 
 <div class="stage"><span class="stage-n">1</span><span class="stage-t">La presentazione</span><span class="stage-w">Fig. 12, p. 3354</span></div>
@@ -353,9 +355,10 @@ html.js.motore-ko #nomotore{display:block}
   <label class="chk"><input type="checkbox" id="brugada"><span class="tx">Sindrome di Brugada</span></label>
   <label class="chk"><input type="checkbox" id="tiro"><span class="tx">Ipertiroidismo</span></label>
   <label class="chk"><input type="checkbox" id="qtl"><span class="tx">QT lungo<small>per vernakalant e ibutilide: QT oltre 440 ms nelle schede tecniche (non corretto per il vernakalant)</small></span></label>
+  <label class="chk"><input type="checkbox" id="lqts"><span class="tx">Sindrome del QT lungo<small>la ESC 2022 controindica flecainide e propafenone e chiede di evitare i farmaci che allungano il QT, come l'amiodarone; le schede tecniche controindicano vernakalant e ibutilide col QT oltre 440 ms: resta la cardioversione elettrica</small></span></label>
   <label class="chk"><input type="checkbox" id="seno"><span class="tx">Disfunzione del nodo del seno</span></label>
   <label class="chk"><input type="checkbox" id="av"><span class="tx">Disturbi della conduzione atrioventricolare</span></label>
-  <div class="riga" style="margin-top:4px"><span class="fl">QTc<small>ms</small></span><input type="text" autocomplete="off" id="qtc" min="250" max="800" step="1" inputmode="numeric" placeholder="ms"></div>
+  <div class="riga" style="margin-top:4px"><span class="fl">QTc<small>ms</small></span><input type="text" autocomplete="off" id="qtc" min="300" max="700" step="1" inputmode="numeric" placeholder="ms"></div>
   <label class="chk"><input type="checkbox" id="wpw"><span class="tx">Pre-eccitazione: sindrome di Wolff-Parkinson-White, FA preeccitata<small>sull'ECG di base o documentata: con la casella accesa la strada dell'anticoagulante resta, ma lo strumento non propone un farmaco per convertire; amiodarone e.v. III B (ESC 2019 TSV, p. 691)</small></span></label>
   <label class="chk" style="margin-top:6px;border-top:1px solid var(--border-strong);padding-top:9px"><input type="checkbox" id="valutati"><span class="tx"><b>Ho valutato tutte queste condizioni</b><small>quelle non segnate sono assenti: senza questa conferma lo strumento non nomina un farmaco</small></span></label>
 </div>
@@ -366,8 +369,8 @@ html.js.motore-ko #nomotore{display:block}
 <div class="stage"><span class="stage-n">8</span><span class="stage-t">Cardioversione elettrica</span><span class="stage-w">p. 3356 · Rec. Table 16, p. 3356</span></div>
 <div class="card">
   <div class="passo"><span class="ico">·</span><span class="tx">Sicura in elezione e in acuto, in sedazione e.v. con <b>midazolam, propofol o etomidate</b>; pressione e ossimetria sempre; <b>atropina o isoproterenolo e.v.</b>, o pacing transcutaneo, pronti per la bradicardia dopo lo shock <span class="pg">ESC 2024, p. 3356</span>.</span></div>
-  <div class="passo"><span class="ico">·</span><span class="tx">Defibrillatore <b>bifasico</b>; elettrodi antero-posteriori o antero-laterali si equivalgono; la <b>compressione attiva</b> delle piastre abbassa la soglia; gli shock a <b>energia massima fissa</b> funzionano meglio di quelli a energia bassa crescente <span class="pg">ESC 2024, p. 3356</span>.</span></div>
-  <div class="passo"><span class="ico">·</span><span class="tx">Per facilitarla: vernakalant subito prima, oppure 3–4 giorni di flecainide, ibutilide, propafenone o amiodarone; per l'amiodarone <b>200–800 mg/die per 1–6 settimane</b> prima e <b>200 mg/die</b> dopo <span class="pg">ESC 2024, p. 3356</span>. Rene dell'amiodarone: nessun aggiustamento, escrezione renale trascurabile (scheda tecnica di amiodarone, 5.2).</span></div>
+  <div class="passo"><span class="ico">·</span><span class="tx">Defibrillatore <b>bifasico</b>; elettrodi antero-posteriori o antero-laterali si equivalgono; la <b>compressione attiva</b> delle piastre abbassa la soglia; gli shock a <b>energia massima fissa</b> funzionano meglio di quelli a energia bassa crescente <span class="pg">ESC 2024, p. 3356</span>.<span id="nAdulto"></span></span></div>
+  <div class="passo"><span class="ico">·</span><span class="tx" id="txFacilita">Per facilitarla: vernakalant subito prima, oppure 3–4 giorni di flecainide, ibutilide, propafenone o amiodarone; per l'amiodarone <b>200–800 mg/die per 1–6 settimane</b> prima e <b>200 mg/die</b> dopo <span class="pg">ESC 2024, p. 3356</span>. Valgono le esclusioni del passo 7. Rene dell'amiodarone: nessun aggiustamento, escrezione renale trascurabile (scheda tecnica di amiodarone, 5.2).</span></div>
   <div id="outElet"></div>
   <div class="passo"><span class="ico">·</span><span class="tx">Come <b>strumento diagnostico</b> nella FA persistente, quando non è chiaro se il ritmo sinusale migliori i sintomi o la funzione del VS <span class="cor c2a">IIa</span> <span class="cor c2a" style="opacity:.85">C</span> <span class="pg">ESC 2024, Rec. Table 16, p. 3356</span>.</span></div>
 </div>
@@ -376,7 +379,7 @@ html.js.motore-ko #nomotore{display:block}
 <div class="card"><h3>Limiti per questo paziente</h3><ul class="lista" id="limiti"></ul></div>
 
 <div class="foot">
-  <strong>Fonte.</strong> Van Gelder IC, Rienstra M, Bunting KV, et al. 2024 ESC Guidelines for the management of atrial fibrillation developed in collaboration with the European Association for Cardio-Thoracic Surgery (EACTS). <em>Eur Heart J</em> 2024;45:3314–3414, doi:10.1093/eurheartj/ehae176, nella versione corretta (Eur Heart J 2025;46:4349) — la strada della cardioversione (Fig. 12, p. 3354), principi del controllo del ritmo (Rec. Table 15, p. 3355, e testo, pp. 3353 e 3355), cardioversione elettrica (§ 7.2.2 e Rec. Table 16, p. 3356), cardioversione farmacologica (Rec. Table 17, p. 3356), dosi e controindicazioni (Tab. 13, p. 3357), CHA₂DS₂-VA (Tab. 10 e Rec. Table 6, p. 3342), DOAC e AVK (Rec. Table 7, p. 3344), il percorso della prima diagnosi (Fig. 4, p. 3334), l'amiodarone per la frequenza (Tab. 12, p. 3353); per la pre-eccitazione la FA preeccitata (pp. 3370–3371), la nota a della Tab. 12 (p. 3353), la gravidanza (Rec. Table 28, p. 3369). <strong>Pre-eccitazione</strong>: Brugada J, Katritsis DG, Arbelo E, et al. 2019 ESC Guidelines for the management of patients with supraventricular tachycardia. <em>Eur Heart J</em> 2020;41:655–720, doi:10.1093/eurheartj/ehz467 — FA preeccitata: cardioversione, farmaci da non dare e ablazione (pp. 690–692). Schede tecniche lette il 03/10/2026: flecainide compresse e fiale, propafenone, ibutilide e due prodotti di amiodarone (AIFA); vernakalant (EMA); per la pre-eccitazione, amiodarone e.v. 4.1 e 4.3 (AIFA, testo reso disponibile il 25/09/2024), riletta il 07/11/2026. Disponibilità in Italia: Banca dati farmaci AIFA, 03/10/2026; procainamide, 05/11/2026. Ogni numero mostrato porta la sua pagina.<br><br>
+  <strong>Fonte.</strong> Van Gelder IC, Rienstra M, Bunting KV, et al. 2024 ESC Guidelines for the management of atrial fibrillation developed in collaboration with the European Association for Cardio-Thoracic Surgery (EACTS). <em>Eur Heart J</em> 2024;45:3314–3414, doi:10.1093/eurheartj/ehae176, nella versione corretta (Eur Heart J 2025;46:4349) — la strada della cardioversione (Fig. 12, p. 3354), principi del controllo del ritmo (Rec. Table 15, p. 3355, e testo, pp. 3353 e 3355), cardioversione elettrica (§ 7.2.2 e Rec. Table 16, p. 3356), cardioversione farmacologica (Rec. Table 17, p. 3356), dosi e controindicazioni (Tab. 13, p. 3357), CHA₂DS₂-VA (Tab. 10 e Rec. Table 6, p. 3342), DOAC e AVK (Rec. Table 7, p. 3344), il percorso della prima diagnosi (Fig. 4, p. 3334), l'amiodarone per la frequenza (Tab. 12, p. 3353); per la pre-eccitazione la FA preeccitata (pp. 3370–3371), la nota a della Tab. 12 (p. 3353), la gravidanza (Rec. Table 28, p. 3369). <strong>Pre-eccitazione</strong>: Brugada J, Katritsis DG, Arbelo E, et al. 2019 ESC Guidelines for the management of patients with supraventricular tachycardia. <em>Eur Heart J</em> 2020;41:655–720, doi:10.1093/eurheartj/ehz467 — FA preeccitata: cardioversione, farmaci da non dare e ablazione (pp. 690–692). <strong>Sindrome del QT lungo</strong>: Zeppenfeld K, Tfelt-Hansen J, de Riva M, et al. 2022 ESC Guidelines for the management of patients with ventricular arrhythmias and the prevention of sudden cardiac death. <em>Eur Heart J</em> 2022;43:3997–4126, doi:10.1093/eurheartj/ehac262 — Tab. 8, pp. 4035–4036, e Rec. Table 41, p. 4077, lette sull'immagine; accanto la ESC 2024, Tab. S6 (supplementare, p. 12) e p. 3370 (scelta del medico, 08/11/2026). Schede tecniche lette il 03/10/2026: flecainide compresse e fiale, propafenone, ibutilide e due prodotti di amiodarone (AIFA); vernakalant (EMA); flecainide, propafenone, amiodarone e ibutilide (AIFA) e vernakalant (EMA) rilette l'08/11/2026; per la pre-eccitazione, amiodarone e.v. 4.1 e 4.3 (AIFA, testo reso disponibile il 25/09/2024), riletta il 07/11/2026. Disponibilità in Italia: Banca dati farmaci AIFA, 03/10/2026; procainamide, 05/11/2026. Ogni numero mostrato porta la sua pagina.<br><br>
   Strumento personale di studio e consultazione: <strong>non sostituisce il giudizio clinico né la scheda tecnica del farmaco</strong>. Non salva i dati e non li invia in rete.
 </div>
 </div>
@@ -456,8 +459,32 @@ html.js.motore-ko #nomotore{display:block}
        3342): lo strumento la lascia com'e' (lettura dello strumento).
        Scheda tecnica dell'amiodarone e.v. (4.1, 4.3): nessuna
        controindicazione, fra le indicazioni le tachicardie reciprocanti della
-       WPW; lo strumento segue le linee guida. */
-  var SOGLIE = { bmiAgg:30, reneIC:35, ibuDati:21, ibuPeso:60, qtcIII:500 };
+       WPW; lo strumento segue le linee guida.
+     Sindrome del QT lungo (casella del passo 6; scelta 4 del medico, 08/11/2026).
+       2022 ESC Guidelines for the management of patients with ventricular
+       arrhythmias, lette sull'immagine: Tab. 8, p. 4035, l'amiodarone allunga il
+       QT; p. 4036, la procainamide allunga il QT, flecainide controindicata nel
+       QT lungo ereditario salvo il tipo 3, propafenone nel QT lungo; Rec. Table
+       41, p. 4077: nel QT lungo evitare i farmaci che allungano il QT, I C.
+       ESC 2024: Tab. S6, supplementare, p. 12: controindicati i farmaci che
+       allungano il QT (amiodarone, sotalolo), anticoagulante secondo il rischio
+       cardioembolico, flecainide nel tipo 3; p. 3370: amiodarone e sotalolo a
+       rischio o controindicati nel QT lungo congenito; Tab. 13, p. 3357:
+       vernakalant e ibutilide non col QT lungo. Scheda tecnica di vernakalant,
+       4.3: QT prolungato al basale, non corretto oltre 440 ms. Scheda tecnica di
+       ibutilide, 4.3: QT oltre 440 ms. L'esclusione e' dello strumento,
+       l'eccezione del tipo 3 resta scritta; resta la cardioversione elettrica.
+     Ibutilide (scelte in blocco 15 e 13, 08/11/2026). Tab. 13, p. 3357: seconda
+       dose 1 mg; scheda tecnica, 4.2: «una seconda dose», senza dire quanta: lo
+       strumento tiene la piu' bassa; clearance studiata fra 21 e 140 mL/min: sotto
+       21 nessuna dose, senza clearance «—», come il Tool Flutter. Scheda tecnica,
+       4.3: QT oltre 440 ms, insufficienza cardiaca sintomatica, infarto da meno di
+       1 mese (casella della SCA); senza casella, riga scritta e limiti: TV
+       polimorfa o torsioni in anamnesi, ipopotassiemia, ipomagnesiemia,
+       antiaritmici di classe I o III in corso, grave compromissione epatica.
+     Eta' (scelta 2 del medico, 08/11/2026, come il Tool TV): sotto i 18 anni
+       niente Cockcroft-Gault e niente mg; restano strada, classi e bersagli. */
+  var SOGLIE = { bmiAgg:30, reneIC:35, ibuDati:21, ibuPeso:60, ibuQt:440, qtcIII:500, etaMin:18, etaMax:110 };
   var DOSI = {
     flecEV:[1, 2], flecBolo:150,          // Tab. 13 · tetto del bolo: scheda tecnica 4.2
     propEV:[1.5, 2],                      // Tab. 13
@@ -478,14 +505,46 @@ html.js.motore-ko #nomotore{display:block}
   // Cockcroft-Gault sul PESO REALE, che decide (decisione del medico del
   // 03/10/2026). Con BMI >=30 si calcola accanto il valore sul peso aggiustato
   // (ideale di Devine + 0,4 x l'eccesso), che non decide.
+  // Dosi dell'adulto e Cockcroft-Gault: sotto i 18 anni lo strumento non calcola
+  // (scelta 2 del medico, 08/11/2026). A eta' vuota tutto come prima.
+  function minore(s) { return s.eta !== null && s.eta < SOGLIE.etaMin; }
+  // Fuori dal dominio dello strumento: un numero impossibile vale come mancante, e lo si dice, come il Tool Flutter
+  // (scelta del medico, 08/11/2026). QTc, peso e altezza con gli stessi limiti; INR ed eGFR con quelli dei loro campi.
+  var DOMINIO = { peso:[25, 250, "peso", " kg"], alt:[120, 220, "altezza", " cm"], qtc:[300, 700, "QTc", " ms"], egfr:[1, 200, "eGFR", ""], inr:[0.8, 10, "INR", ""] };
+  function dominio(s) {
+    var o = [], k, d;
+    for (k in DOMINIO) {
+      d = DOMINIO[k];
+      if (s[k] !== null && (s[k] < d[0] || s[k] > d[1])) {
+        o.push(d[2] + " fuori da " + String(d[0]).replace(".", ",") + "–" + d[1] + d[3]);
+        if (k === "qtc") s.qtcFuori = true;
+        s[k] = null;
+      }
+    }
+    return o;
+  }
+  // Creatinina nell'unita' sbagliata: nessun calcolo, e lo si dice, come il Tool FC FA e il
+  // Tool Flutter (ricontrollo indipendente, 08/11/2026): 1,2 con «µmol/L» dava ClCr 6548.
+  function fuoriScala(s) {
+    if (s.creat === null) return "";
+    if (s.ucr !== "umol" && s.creat > 20) return "creatinina " + String(s.creat).replace(".", ",") + " mg/dL: fuori scala. È in µmol/L? Cambia l'unità.";
+    if (s.ucr === "umol" && s.creat < 20) return "creatinina " + String(s.creat).replace(".", ",") + " µmol/L: fuori scala. È in mg/dL? Cambia l'unità.";
+    return "";
+  }
+  // Il valore mostrato, a un decimale, mai arrotondato oltre una soglia: 20,96 si legge
+  // 20,9 e non 21,0, come il Tool FC FA e il Tool Flutter (ricontrollo indipendente, 08/11/2026).
+  function clV(x) { var d = r1(x); if ((d === SOGLIE.reneIC || d === SOGLIE.ibuDati) && x < d) d = Math.floor(x * 10) / 10; return d; }
   function clearance(s) {
-    var o = { reale:null, agg:null, bmi:null, pesoAgg:null, manca:[] }, cr = creatMg(s);
+    var o = { reale:null, agg:null, bmi:null, pesoAgg:null, manca:[], scala:"" }, cr = creatMg(s);
     if (s.peso !== null && s.alt !== null) o.bmi = s.peso / Math.pow(s.alt / 100, 2);
+    if (minore(s)) { o.fuori = "età sotto i 18 anni: la Cockcroft-Gault è una formula dell'adulto"; return o; }
+    if (s.eta !== null && s.eta > SOGLIE.etaMax) { o.fuori = "età fuori scala (18–110 anni)"; return o; }
     if (s.eta === null) o.manca.push("età");
     if (!s.sesso) o.manca.push("sesso");
     if (s.peso === null) o.manca.push("peso");
     if (cr === null) o.manca.push("creatinina");
-    if (o.manca.length) return o;
+    o.scala = fuoriScala(s);
+    if (o.manca.length || o.scala) return o;
     var f = s.sesso === "f" ? 0.85 : 1;
     o.reale = ((140 - s.eta) * s.peso * f) / (72 * cr);
     if (o.bmi !== null && o.bmi >= SOGLIE.bmiAgg) {
@@ -502,10 +561,10 @@ html.js.motore-ko #nomotore{display:block}
   // cella comune). L'unita' e' quella di un eGFR: lettura prudente, esclusi se
   // e' sotto 35 la clearance sul peso reale o l'eGFR del laboratorio. A 35
   // esatto la fonte li ammette, e la scheda tecnica dimezza ogni dose (<=35). Il
-  // confronto e' sul valore mostrato, a un decimale.
+  // confronto e' sul valore mostrato, a un decimale, mai arrotondato oltre la soglia.
   function reneIC(rn) {
     var v = [];
-    if (rn.cl.reale !== null) v.push(r1(rn.cl.reale));
+    if (rn.cl.reale !== null) v.push(clV(rn.cl.reale));
     if (rn.egfr !== null) v.push(rn.egfr);
     if (!v.length) return { noto:false };
     var m = Math.min.apply(null, v);
@@ -515,7 +574,7 @@ html.js.motore-ko #nomotore{display:block}
   // cadono ai lati opposti.
   function latiOpposti(cl) {
     if (cl.reale === null || cl.agg === null) return [];
-    var a = r1(cl.reale), b = r1(cl.agg), out = [];
+    var a = clV(cl.reale), b = clV(cl.agg), out = [];
     if ((a < 35) !== (b < 35)) out.push("35 mL/min, sotto la quale la Tab. 13 esclude flecainide e propafenone");
     else if ((a <= 35) !== (b <= 35)) out.push("35 mL/min, alla quale la scheda tecnica dimezza la flecainide");
     if ((a < 21) !== (b < 21)) out.push("21 mL/min, sotto la quale la scheda tecnica dell'ibutilide non ha dati");
@@ -574,13 +633,16 @@ html.js.motore-ko #nomotore{display:block}
   // e' un dato positivo. Le classi della Rec. Table 17 e le dosi della Tab. 13
   // lo strumento non le applica alla FA preeccitata, che la ESC 2024 tratta a
   // parte (pp. 3370-3371) e la ESC 2019 con classi sue (p. 691): con la casella
-  // nessun farmaco e' proposto.
+  // nessun farmaco e' proposto. La sindrome del QT lungo governa allo stesso modo
+  // (scelta 4 del medico, 08/11/2026): nessun farmaco, resta la cardioversione
+  // elettrica. Accese tutte e due, resta la pre-eccitazione con l'avviso.
   function farmaci(s, rn) {
-    if (s.wpw) return { stato:"wpw", emo:s.emo || null, am:!!(s.ivs || s.hfref || s.cad || s.sca) };
+    if (s.wpw) return { stato:"wpw", emo:s.emo || null, am:!!(s.ivs || s.hfref || s.cad || s.sca), lqts:!!s.lqts };
+    if (s.lqts) return { stato:"lqts", emo:s.emo || null, am:!!(s.ivs || s.hfref || s.cad || s.sca) };
     if (!s.emo) return { stato:null, perche:"serve la stabilità emodinamica (passo 1)" };
     if (s.emo === "instabile") return { stato:"instabile" };
     if (!s.valutati) return { stato:null, perche:"conferma le condizioni del passo 6" };
-    if (s.qtc === null) return { stato:null, perche:"serve il QTc (passo 6): oltre 500 ms la cardioversione farmacologica non è raccomandata" };
+    if (s.qtc === null) return { stato:null, perche:(s.qtcFuori ? "QTc fuori scala (300–700 ms), non usato: " : "") + "serve il QTc (passo 6): oltre 500 ms la cardioversione farmacologica non è raccomandata" };
     var iii = [];
     if (s.seno) iii.push("disfunzione del nodo del seno");
     if (s.av) iii.push("disturbi della conduzione atrioventricolare");
@@ -595,7 +657,8 @@ html.js.motore-ko #nomotore{display:block}
     if (s.brugada) ic.push(["sindrome di Brugada", "T13"]);
     if (s.nyha) ic.push(["scompenso NYHA III–IV: le schede tecniche controindicano gli IC nello scompenso", "STIC"]);
     if (ri.noto && ri.escluso) ic.push(["ClCr o eGFR " + String(ri.min).replace(".", ",") + ", sotto 35", "T13"]);
-    o.ic = { no:ic, rene:ri, ok:!ic.length && ri.noto, dimezza:!!(ri.noto && ri.dimezza) };
+    // Sotto i 18 anni la clearance non c'e', e la classe resta: il rene si dice accanto, e di mg non ce ne sono.
+    o.ic = { no:ic, rene:ri, ok:!ic.length && (ri.noto || minore(s)), dimezza:!!(ri.noto && ri.dimezza) };
     var ve = [];
     if (s.sca) ve.push(["SCA nell'ultimo mese", "R17"]);
     if (s.hfref) ve.push(["HFrEF", "R17"]);
@@ -606,9 +669,12 @@ html.js.motore-ko #nomotore{display:block}
     o.ve = { no:ve, ok:!ve.length };
     o.am = { indicato:!!(s.ivs || s.hfref || cad), tiro:s.tiro };
     var ib = [];
-    if (s.qtl) ib.push("QT lungo");
-    if (s.ivs) ib.push("ipertrofia ventricolare sinistra severa");
-    if (s.hfref) ib.push("FE bassa (HFrEF)");
+    if (s.qtl) ib.push(["QT lungo", "T13"]);
+    if (s.qtc > SOGLIE.ibuQt) ib.push(["QTc " + s.qtc + " ms, oltre 440 (la scheda dice «QT»: lo strumento lo legge sul QTc del passo 6, lettura dello strumento)", "STIB"]);
+    if (s.ivs) ib.push(["ipertrofia ventricolare sinistra severa", "T13"]);
+    if (s.hfref) ib.push(["FE bassa (HFrEF)", "T13"]);
+    if (s.nyha) ib.push(["scompenso sintomatico (NYHA III–IV)", "STIB"]);
+    if (s.sca) ib.push(["SCA nell'ultimo mese (la scheda dice infarto recente, meno di 1 mese)", "STIB"]);
     o.ib = { no:ib, ok:!ib.length };
     return o;
   }
@@ -624,12 +690,16 @@ html.js.motore-ko #nomotore{display:block}
     var p = r0(DOSI.vern1 * peso), q = r0(DOSI.vern2 * peso);
     return { prima:Math.min(p, DOSI.vern1Max), seconda:Math.min(q, DOSI.vern2Max), tetto:p > DOSI.vern1Max };
   }
-  function dosiIbu(peso) { return peso < SOGLIE.ibuPeso ? { mg:r2(DOSI.ibuKg * peso), perKg:true } : { mg:1, perKg:false }; }
+  // Seconda dose: sotto i 60 kg la piu' bassa (scelte in blocco 15 e 13, 08/11/2026).
+  function dosiIbu(peso) { var m = r2(DOSI.ibuKg * peso); return peso < SOGLIE.ibuPeso ? { mg:m, seconda:m, perKg:true } : { mg:1, seconda:1, perKg:false }; }
 
   /* ═══ STATO E DISEGNO ═════════════════════════════════════════════════ */
   function el(id) { return document.getElementById(id); }
   function ckv(id) { var e = el(id); return !!(e && e.checked); }
   function num(id) { var v = el(id).value; if (v === "") return null; var n = parseFloat(String(v).replace(",", ".")); return isNaN(n) ? null : n; }
+  // Un valore che non puo' essere zero o negativo vale come mancante, come nel Tool FC FA
+  // (ricontrollo indipendente, 08/11/2026): creatinina 0 dava «ClCr Infinity». Il CHA2DS2-VA puo' essere 0: resta num().
+  function pos(id) { var n = num(id); return n !== null && n <= 0 ? null : n; }
   function radio(n) { var e = document.querySelector('input[name="' + n + '"]:checked'); return e ? e.value : ""; }
   function nf(x, d) { if (d === 0) x = Math.round(x); else x = r1(x); var t = String(x).replace(".", ","); if (d !== 0 && t.indexOf(",") < 0) t += ",0"; return t; }
   function nd(x) { return String(x).replace(".", ","); }
@@ -646,18 +716,34 @@ html.js.motore-ko #nomotore{display:block}
       R17 = "ESC 2024, Rec. Table 17, p. 3356", P56 = "ESC 2024, p. 3356", T13 = "ESC 2024, Tab. 13, p. 3357", R6 = "ESC 2024, Rec. Table 6, p. 3342",
       T10 = "ESC 2024, Tab. 10, p. 3342", R7 = "ESC 2024, Rec. Table 7, p. 3344", F4 = "ESC 2024, Fig. 4, p. 3334", T12 = "ESC 2024, Tab. 12, p. 3353",
       T12a = "ESC 2024, Tab. 12, nota a, p. 3353", P7071 = "ESC 2024, pp. 3370–3371", P71 = "ESC 2024, p. 3371", R28 = "ESC 2024, Rec. Table 28, p. 3369",
-      V690 = "ESC 2019 TSV, p. 690", V691 = "ESC 2019 TSV, p. 691", V692 = "ESC 2019 TSV, p. 692", V6902 = "ESC 2019 TSV, pp. 690–692";
-  var FONTI = { R17:R17, T13:T13, STIC:"schede tecniche di flecainide e propafenone, 4.3" };
+      V690 = "ESC 2019 TSV, p. 690", V691 = "ESC 2019 TSV, p. 691", V692 = "ESC 2019 TSV, p. 692", V6902 = "ESC 2019 TSV, pp. 690–692",
+      TS6 = "ESC 2024, Tab. S6, supplementare, p. 12", P3370 = "ESC 2024, p. 3370", R41 = "ESC 2022, Rec. Table 41, p. 4077", E4035 = "ESC 2022, Tab. 8, p. 4035", E4036 = "ESC 2022, Tab. 8, p. 4036";
+  var FONTI = { R17:R17, T13:T13, STIC:"schede tecniche di flecainide e propafenone, 4.3", STIB:"scheda tecnica di ibutilide, 4.3" };
+  // Sindrome del QT lungo (scelta 4 del medico, 08/11/2026): le parole del capitolo 15, con la ESC 2024 accanto.
+  var SCELTA_QT = "(scelta del medico, 08/11/2026)";
+  var QTL_AMIO = "sindrome del QT lungo: allunga il QT" + pgs(E4035) + ", e nel QT lungo la ESC 2022 raccomanda di evitare i farmaci che lo allungano, " + corPill("I", "C") + pgs(R41) + ": lo strumento lo esclude, la lettura più prudente " + SCELTA_QT + ". Accanto, la ESC 2024 nomina amiodarone e sotalolo fra i farmaci controindicati nel QT lungo" + pgs(TS6) + ", e li dice a rischio più alto o controindicati in quello congenito" + pgs(P3370);
+  var QTL_PROC = "sindrome del QT lungo: allunga il QT" + pgs(E4036) + ", e nel QT lungo la ESC 2022 raccomanda di evitare i farmaci che lo allungano, " + corPill("I", "C") + pgs(R41) + ": lo strumento la esclude, la lettura più prudente " + SCELTA_QT;
+  var QTL_IC = "sindrome del QT lungo: la ESC 2022 li controindica" + pgs(E4036) + ", la flecainide salvo il tipo 3, che la ESC 2024 nomina nella Tab. S6" + pgs("supplementare, p. 12") + ": lo strumento non distingue il tipo e li esclude " + SCELTA_QT;
+  var QTL_VERN = "sindrome del QT lungo: la ESC 2024 non lo vuole col QT lungo" + pgs(T13) + ", e la scheda tecnica lo controindica col QT prolungato al basale, non corretto oltre 440 ms (scheda tecnica di vernakalant, 4.3)";
+  var QTL_IBU = "sindrome del QT lungo: la scheda tecnica la controindica con un QT prolungato oltre 440 ms (scheda tecnica di ibutilide, 4.3), e la ESC 2024 non la vuole col QT lungo" + pgs(T13);
+  var NOMG = "sotto i 18 anni le dosi dell'adulto non valgono: lo strumento non calcola i mg";
+  function mgNo() { return ' — <span class="muted">' + NOMG + "</span>"; }
+  // Passo 8, la riga dei farmaci per facilitare: con la sindrome del QT lungo nessuno; sotto i 18 anni senza i mg.
+  function facilita(s) {
+    if (s.lqts) return "Per facilitarla la fonte nomina vernakalant, flecainide, ibutilide, propafenone e amiodarone" + pgs(P56) + ": con la sindrome del QT lungo <b>nessun farmaco</b>, lo strumento li esclude tutti, con le ragioni del passo 7 " + SCELTA_QT + ".";
+    return "Per facilitarla: vernakalant subito prima, oppure 3–4 giorni di flecainide, ibutilide, propafenone o amiodarone; per l'amiodarone " + (minore(s) ? "la fonte dà una dose dell'adulto" + mgNo() : "<b>200–800 mg/die per 1–6 settimane</b> prima e <b>200 mg/die</b> dopo") + pgs(P56) + ". Valgono le esclusioni del passo 7. Rene dell'amiodarone: nessun aggiustamento, escrezione renale trascurabile (scheda tecnica di amiodarone, 5.2).";
+  }
 
   function S() {
-    var ids = ["ader", "ivs", "hfref", "cad", "sca", "sa", "nyha", "pas", "brugada", "tiro", "qtl", "seno", "av", "wpw", "valutati"], s = {}, i;
+    var ids = ["ader", "ivs", "hfref", "cad", "sca", "sa", "nyha", "pas", "brugada", "tiro", "qtl", "lqts", "seno", "av", "wpw", "valutati"], s = {}, i;
     for (i = 0; i < ids.length; i++) s[ids[i]] = ckv(ids[i]);
-    s.inr = num("inr"); s.cha = num("cha"); s.eta = num("eta"); s.peso = num("peso"); s.alt = num("alt"); s.creat = num("creat"); s.egfr = num("egfr"); s.qtc = num("qtc");
+    s.inr = pos("inr"); s.cha = num("cha"); s.eta = pos("eta"); s.peso = pos("peso"); s.alt = pos("alt"); s.creat = pos("creat"); s.egfr = pos("egfr"); s.qtc = pos("qtc");
     s.emo = radio("emo"); s.durata = radio("durata"); s.oac = radio("oac"); s.sett = radio("sett"); s.valv = radio("valv"); s.attesa = radio("attesa"); s.ete = radio("ete") || "no";
     s.hcm = radio("hcm"); s.sesso = radio("sesso"); s.ucr = el("ucr").value;
     if (s.oac !== "doac" && s.oac !== "avk") { s.sett = ""; }
     if (s.oac !== "doac" || s.sett !== "si") s.ader = false;
     if (s.oac !== "avk" || s.sett !== "si") s.inr = null;
+    s.fuori = dominio(s);
     return s;
   }
 
@@ -732,6 +818,7 @@ html.js.motore-ko #nomotore{display:block}
         h += nota("stop", ATT + "L'attesa della conversione spontanea" + pgs(R15) + ", qui accanto alla cardioversione, è per la FA senza compromissione emodinamica, e nessuna delle due linee guida la considera nella FA preeccitata" + NESS + ": lo strumento la mostra, ma con la pre-eccitazione la fonte non la sostiene. Lettura dello strumento.");
       h += passo("<b>Pre-eccitazione</b>: la strada dell'anticoagulante resta questa. È una lettura dello strumento: nessuna delle due linee guida la cambia nella FA preeccitata" + pgs(P7071 + "; " + V6902) + ", e il CHA₂DS₂-VA non conta la preeccitazione" + pgs(T10) + ". Il farmaco per convertire: passo 7.");
     }
+    if (s.lqts) h += passo("<b>Sindrome del QT lungo</b>: la strada dell'anticoagulante resta questa. È una lettura dello strumento: la ESC 2024 lascia l'anticoagulante al rischio cardioembolico" + pgs(TS6) + ". Se si arriva a cardiovertire, resta l'<b>elettrica</b>: passo 7.");
     return h;
   }
 
@@ -755,16 +842,17 @@ html.js.motore-ko #nomotore{display:block}
   function disegnaRene(s, rn) {
     var h = "", c = rn.cl, cr = creatMg(s);
     if (c.reale !== null) {
-      var k = r1(c.reale) < 35 ? "k4" : (r1(c.reale) <= 35 ? "k3" : "k1");
-      h += esito('<span class="big">Clearance ' + nf(c.reale, 1) + " mL/min</span>" + chip(k, "Cockcroft-Gault, peso reale " + nd(s.peso) + " kg"));
+      var cv = clV(c.reale), k = cv < 35 ? "k4" : (cv <= 35 ? "k3" : "k1");
+      h += esito('<span class="big">Clearance ' + nf(cv, 1) + " mL/min</span>" + chip(k, "Cockcroft-Gault, peso reale " + nd(s.peso) + " kg"));
       if (s.ucr === "umol") h += '<div class="muted" style="font-size:12.5px">Creatinina ' + nd(s.creat) + " µmol/L = " + nd(r2(cr)) + " mg/dL (÷ 88,4)</div>";
       if (c.agg !== null) {
-        h += passo("Sul <b>peso aggiustato</b> (" + nf(c.pesoAgg, 1) + " kg, BMI " + nf(c.bmi, 1) + "): <b>" + nf(c.agg, 1) + " mL/min</b> — accanto, non decide: decide il peso reale (decisione del medico, 03/10/2026).");
+        h += passo("Sul <b>peso aggiustato</b> (" + nf(c.pesoAgg, 1) + " kg, BMI " + nf(c.bmi, 1) + "): <b>" + nf(clV(c.agg), 1) + " mL/min</b> — accanto, non decide: decide il peso reale (decisione del medico, 03/10/2026).");
         var lo = latiOpposti(c);
         if (lo.length) h += nota("stop", "<b>Reale e aggiustato cadono ai lati opposti</b> della soglia di " + lo.join("; e di ") + ". Decide il peso reale; il valore aggiustato dice che nell'obeso il reale può sovrastimare il rene.");
       } else if (c.bmi !== null && c.bmi >= 30) h += passo("BMI " + nf(c.bmi, 1) + ": il peso aggiustato non supera il reale, nessun valore accanto.");
       if (s.alt === null) h += '<div class="muted" style="font-size:12.5px">Altezza non indicata: il BMI non si calcola, e nell\'obeso manca il valore sul peso aggiustato.</div>';
-    } else h += esito(chip("kx", "clearance —") + muted("mancano: " + c.manca.join(", ")));
+    } else h += esito(chip("kx", "clearance —") + muted(c.fuori || ((c.manca.length ? "mancano: " + c.manca.join(", ") + (c.scala ? "; " : "") : "") + c.scala)));
+    if (s.fuori && s.fuori.length) h += nota("stop", "Fuori scala, e quindi non usato: " + s.fuori.join("; ") + ".");
     if (rn.egfr !== null) h += esito(chip(rn.egfr < 35 ? "k4" : (rn.egfr <= 35 ? "k3" : "k1"), "eGFR " + nf(rn.egfr, 0) + " mL/min/1,73 m²") + muted("conta anche lui per la soglia degli IC: la Tab. 13 la scrive in mL/min/1,73 m²"));
     return h;
   }
@@ -775,9 +863,27 @@ html.js.motore-ko #nomotore{display:block}
     return t.join("; ");
   }
 
+  // Sindrome del QT lungo: farmaco per farmaco, perché è escluso. Nessuna dose.
+  function righeQt(f, conProc) {
+    var h = "";
+    if (conProc) h += passo("<b>Ibutilide</b>, esclusa: " + QTL_IBU + ".") + passo("<b>Procainamide</b>, esclusa: " + QTL_PROC + ".");
+    h += passo("<b>Flecainide · propafenone</b>, esclusi: " + QTL_IC + ".");
+    if (!conProc) h += passo("<b>Vernakalant</b>, escluso: " + QTL_VERN + ".") + passo("<b>Ibutilide</b>, esclusa: " + QTL_IBU + ".");
+    h += passo("<b>Amiodarone</b>, escluso: " + QTL_AMIO + "." + (f.am ? " Vale anche con ipertrofia severa, HFrEF o coronaropatia, dove senza la casella lo strumento lo propone" + pgs(R17) + "." : ""));
+    return h;
+  }
+  function farmLqts(f) {
+    var h = "";
+    if (f.emo === "instabile") h += nota("spenta", "Instabile: la cardioversione è <b>elettrica</b> " + corPill("I", "C") + pgs(R15) + "; quella farmacologica è una procedura elettiva del paziente emodinamicamente stabile" + pgs(P56) + ".");
+    else h += esito('<span class="big">Sindrome del QT lungo: nessun farmaco</span>' + chip("k4", "resta l'elettrica"));
+    h += nota("stop", "<b>Resta la cardioversione elettrica.</b> Lo strumento non propone un farmaco per convertire: li esclude tutti, per le ragioni qui sotto " + SCELTA_QT + ". La strada dell'anticoagulante non cambia (passo 3).");
+    return h + righeQt(f, false);
+  }
+
   // Pre-eccitazione: che cosa dicono le fonti, senza proporre un farmaco né una dose.
   function farmWpw(f) {
     var h = "";
+    var QT = f.lqts ? nota("stop", "<b>C'è anche la sindrome del QT lungo: resta la cardioversione elettrica.</b> I farmaci che le due linee guida nominano nella FA preeccitata lo strumento li esclude tutti " + SCELTA_QT + ":") + righeQt(f, true) : "";
     var NODO = "Nella FA preeccitata digossina, betabloccanti, diltiazem, verapamil e amiodarone non sono raccomandati e possono nuocere " + corPill("III", "B") + pgs(V690) + "; i farmaci che agiscono sul nodo AV vanno evitati, perché possono contribuire al rischio di FV" + pgs(V690 + "; " + P71) + ", e la ESC 2024 controindica nella WPW tutti i farmaci della frequenza, anche l'amiodarone e.v." + pgs(T12a) + ".";
     var AMIO = "<b>Amiodarone e.v.</b>: non raccomandato " + corPill("III", "B") + pgs(V691) + ", perché sono state riportate una conduzione accresciuta sulla via accessoria e la FV" + pgs(V692) + "; la ESC 2024 lo evita per l'azione ritardata" + pgs(P71) + "." +
       (f.am ? " Vale anche con ipertrofia severa, HFrEF o coronaropatia, dove senza la casella lo strumento lo propone" + pgs(R17) + ": nella FA preeccitata la stessa ESC 2024 lo evita" + pgs(P71) + "." : "") +
@@ -788,11 +894,20 @@ html.js.motore-ko #nomotore{display:block}
       h += passo("<b>FA preeccitata</b> con compromissione emodinamica: <b>cardioversione elettrica immediata</b>" + pgs(P7071) + "; sincronizzata, " + corPill("I", "B") + pgs(V691) + ".", true);
       h += passo(NODO);
       h += passo(AMIO);
-      return h + passo(DOVE);
+      return h + QT + passo(DOVE);
     }
     h += esito('<span class="big">Pre-eccitazione: nessun farmaco proposto</span>' + chip("k4", "FA preeccitata"));
+    h += QT;
     h += nota("stop", "<b>Lo strumento non propone un farmaco per convertire.</b> Le classi della Rec. Table 17 e le dosi della Tab. 13" + pgs(R17 + "; " + T13) + " qui non le applica: la ESC 2024 tratta a parte la FA preeccitata" + pgs(P7071) + ", e la ESC 2019 le dà classi sue" + pgs(V691) + ". " + NODO + " Non vale nemmeno la regola della Tab. 13 che affianca a flecainide e propafenone un farmaco che blocca il nodo AV, contro il flutter 1:1" + pgs(T13) + ".");
     h += passo("Con compromissione emodinamica: <b>cardioversione elettrica immediata</b>" + pgs(P7071) + "; sincronizzata, " + corPill("I", "B") + pgs(V691) + ". In gravidanza la FA preeccitata va alla cardioversione elettrica immediata anche senza instabilità " + corPill("I", "C") + pgs(R28) + ": la gravidanza resta fuori da questo strumento.", true);
+    // Con le due caselle il passo non nomina piu' come possibili i farmaci che esclude, come il Tool FC FA
+    // (scelta del medico, giro 4, punto 4, e ricontrollo indipendente, 08/11/2026).
+    if (f.lqts) {
+      h += passo(AMIO);
+      h += passo("<b>Vernakalant</b>: nessuna delle due linee guida lo nomina nella FA preeccitata" + pgs(V6902 + "; " + P7071) + ": lo strumento non lo propone.");
+      h += passo("La cardioversione elettrica sincronizzata la ESC 2019 la raccomanda anche da stabile, se i farmaci non convertono né controllano " + corPill("I", "B") + pgs(V691) + ": qui i farmaci non ci sono.");
+      return h + passo(DOVE);
+    }
     h += passo("Da stabile, la ESC 2019: <b>ibutilide o procainamide e.v.</b> " + corPill("IIa", "B") + "; <b>flecainide o propafenone e.v.</b> " + corPill("IIb", "B") + "; se i farmaci non la convertono né la controllano, <b>cardioversione elettrica sincronizzata</b> " + corPill("I", "B") + pgs(V691) + ". L'ibutilide è controindicata con il QTc lungo, flecainide e propafenone e.v. con una cardiopatia ischemica o strutturale" + pgs(V691) + ".");
     h += passo("La ESC 2024: la cardioversione farmacologica si può tentare con ibutilide o flecainide, il propafenone con cautela per l'effetto sul nodo AV" + pgs(P71) + ". Anche la ESC 2019 vuole cautela con gli IC, che agiscono pure sul nodo AV e possono non riportare il ritmo sinusale" + pgs(V692) + ".");
     h += '<div class="muted" style="font-size:12.5px;margin:4px 0">In Italia (Banca dati AIFA): flecainide fiale in commercio; propafenone e.v. <b>non più in commercio dal 31/01/2025</b>; ibutilide <b>non più in commercio dal 31/08/2026</b> (03/10/2026); procainamide <b>non in commercio</b>, nessun prodotto (05/11/2026).</div>';
@@ -803,9 +918,10 @@ html.js.motore-ko #nomotore{display:block}
   }
 
   function disegnaFarm(s, rn, st, f) {
-    var h = "", p = s.peso;
+    var h = "", p = s.peso, nm = minore(s);
     if (f.stato === null) return esito(chip("kx", "farmaco —") + muted(f.perche));
     if (f.stato === "wpw") return farmWpw(f);
+    if (f.stato === "lqts") return farmLqts(f);
     if (f.stato === "instabile") return nota("spenta", "Instabile: la cardioversione è <b>elettrica</b> " + corPill("I", "C") + pgs(R15) + "; quella farmacologica è una procedura elettiva del paziente emodinamicamente stabile" + pgs(P56) + ".");
     if (f.stato === "iiic") return esito('<span class="big">Nessun farmaco</span>' + corPill("III", "C")) + nota("stop", "<b>Cardioversione farmacologica non raccomandata</b> " + corPill("III", "C") + pgs(R17) + ": " + f.motivi.join("; ") + " — a meno di aver pesato i rischi di proaritmia e di bradicardia. Lo strumento non propone un farmaco: «—».");
     var nonOra = { trombo:1, serve_ete:1, tre_sett:1, attesa:1 };
@@ -815,10 +931,11 @@ html.js.motore-ko #nomotore{display:block}
     /* IC */
     var ic = f.ic, b = '<div class="blk">', ICIT = italia("flecainide compresse e fiale in commercio; propafenone compresse in commercio, <b>e.v. non più in commercio dal 31/01/2025</b>");
     if (ic.no.length) b += esito('<span class="mid">Flecainide · propafenone e.v.</span>' + chip("k4", "esclusi")) + ICIT + passo("Esclusi per " + motivi(ic.no) + ".");
-    else if (!ic.rene.noto) b += esito('<span class="mid">Flecainide · propafenone e.v.</span>' + chip("kx", "—") + muted("serve il rene (passo 5): la Tab. 13 li esclude con ClCr &lt;35")) + ICIT;
+    else if (!ic.ok) b += esito('<span class="mid">Flecainide · propafenone e.v.</span>' + chip("kx", "—") + muted("serve il rene (passo 5): la Tab. 13 li esclude con ClCr &lt;35")) + ICIT;
     else {
       b += esito('<span class="mid">Flecainide · propafenone e.v.</span>' + corPill("I", "A")) + ICIT + passo("FA di recente insorgenza, senza ipertrofia severa, HFrEF né coronaropatia " + corPill("I", "A") + pgs(R17) + ".");
-      if (p === null) b += passo("Flecainide 1–2 mg/kg e propafenone 1,5–2 mg/kg e.v. in 10 min" + pgs(T13) + ": serve il peso.");
+      if (nm) b += passo("<b>Flecainide e propafenone e.v.</b>" + mgNo() + ". Rene: " + (ic.rene.noto ? "esclusi sotto 35 mL/min/1,73 m²" + pgs(T13) + ", e qui non lo sono" : "la Tab. 13 li esclude sotto 35 mL/min/1,73 m²" + pgs(T13) + ", e sotto i 18 anni la Cockcroft-Gault non si calcola: conta l'eGFR del laboratorio, se c'è (passo 5)") + ".", true);
+      else if (p === null) b += passo("Flecainide 1–2 mg/kg e propafenone 1,5–2 mg/kg e.v. in 10 min" + pgs(T13) + ": serve il peso.");
       else {
         var fd = dosiFlec(p, ic.dimezza), pd = dosiProp(p);
         b += passo("<b>Flecainide e.v. " + fd.da + "–" + fd.a + " mg</b> in 10 min (1–2 mg/kg = " + fd.kgDa + "–" + fd.kgA + " mg" + pgs(T13) + (fd.tetto ? "; il bolo non supera 150 mg, scheda tecnica di flecainide, 4.2" : "") + (ic.dimezza ? "; <b>dimezzati</b> per il rene" : "") + "); successo 52–95% entro 6 h" + pgs(T13) + ". " +
@@ -828,7 +945,7 @@ html.js.motore-ko #nomotore{display:block}
         b += passo("<b>Propafenone e.v. " + pd.da + "–" + pd.a + " mg</b> in 10 min (1,5–2 mg/kg" + pgs(T13) + "); successo 43–89% entro 6 h" + pgs(T13) + ". Rene: escluso sotto 35 (cella comune agli IC" + pgs(T13) + "); la scheda tecnica non ha soglie: cautela, ECG e livelli, dose orale ridotta di almeno il 50% (4.2, 4.4); dose e tempi e.v. della scheda tecnica sono diversi (vedi le incoerenze).");
       }
       b += passo("Con gli IC: un farmaco che blocca il nodo AV, perché se la FA diventa flutter non conduca 1:1; stop all'infusione se il QRS si allarga oltre il 25% o compare un blocco di branca; cautela con malattia del nodo del seno o disfunzione del nodo AV; <b>mai</b> per convertire un flutter" + pgs(T13) + ".");
-      b += passo("<b>Pill-in-the-pocket</b> nella FA parossistica infrequente " + corPill("IIa", "B") + pgs(R17) + ": flecainide <b>200–300 mg</b> o propafenone <b>450–600 mg</b> per os in dose singola" + pgs(T13) + ", dopo una prima prova di efficacia e sicurezza in ospedale, escludendo disfunzione del nodo del seno, difetti della conduzione AV e Brugada" + pgs(P56) + ". Nessuna scheda tecnica sostiene la dose singola: «una dose di carico non è raccomandata» (flecainide, 4.2), e la scheda del propafenone non ha la FA fra le indicazioni." + (ic.dimezza ? " Con ClCr 35, per os la scheda tecnica comincia con 100 mg/die (4.2): la dose singola della fonte non è adattata al rene " + dv() + "." : ""));
+      b += passo("<b>Pill-in-the-pocket</b> nella FA parossistica infrequente " + corPill("IIa", "B") + pgs(R17) + ": " + (nm ? "flecainide o propafenone per os in dose singola" + mgNo() : "flecainide <b>200–300 mg</b> o propafenone <b>450–600 mg</b> per os in dose singola" + pgs(T13)) + ", dopo una prima prova di efficacia e sicurezza in ospedale, escludendo disfunzione del nodo del seno, difetti della conduzione AV e Brugada" + pgs(P56) + ". Nessuna scheda tecnica sostiene la dose singola: «una dose di carico non è raccomandata» (flecainide, 4.2), e la scheda del propafenone non nomina la FA (4.1: tachiaritmie sopraventricolari)." + (ic.dimezza && !nm ? " Con ClCr 35, per os la scheda tecnica comincia con 100 mg/die (4.2): la dose singola della fonte non è adattata al rene " + dv() + "." : ""));
     }
     h += b + "</div>";
 
@@ -838,7 +955,8 @@ html.js.motore-ko #nomotore{display:block}
     if (f.ve.no.length) b += esito('<span class="mid">Vernakalant e.v.</span>' + chip("k4", "escluso")) + VEIT + passo("Escluso per " + motivi(f.ve.no) + ".");
     else {
       b += esito('<span class="mid">Vernakalant e.v.</span>' + corPill("I", "A")) + VEIT + passo("FA di recente insorgenza, senza SCA recente, HFrEF né stenosi aortica severa " + corPill("I", "A") + pgs(R17) + (s.cad && !s.sca ? "; con la coronaropatia resta possibile, perché la Rec. Table 17 esclude solo la SCA recente" : "") + ".");
-      if (p === null) b += passo("3 mg/kg in 10 min (al massimo 339 mg), poi 2 mg/kg (al massimo 226 mg)" + pgs(T13) + ": serve il peso.");
+      if (nm) b += passo("<b>Vernakalant e.v.</b>" + mgNo() + ". Scheda tecnica: controindicato con QT non corretto oltre 440 ms; niente antiaritmici e.v. di classe I o III nelle 4 h prima e dopo (scheda tecnica di vernakalant, 4.3). Rene: nessun aggiustamento (scheda tecnica di vernakalant, 4.2).", true);
+      else if (p === null) b += passo("3 mg/kg in 10 min (al massimo 339 mg), poi 2 mg/kg (al massimo 226 mg)" + pgs(T13) + ": serve il peso.");
       else {
         var vd = dosiVern(p);
         b += passo("<b>" + vd.prima + " mg</b> in 10 min (3 mg/kg, al massimo 339 mg); se non converte, dopo 10–15 min <b>" + vd.seconda + " mg</b> in 10 min (2 mg/kg, al massimo 226 mg)" + pgs(T13) + "; successo 50% entro 10 min" + pgs(T13) + ". Scheda tecnica: il peso conta fino a 113 kg, al massimo 5 mg/kg nelle 24 h; controindicato con QT non corretto oltre 440 ms; niente antiaritmici e.v. di classe I o III nelle 4 h prima e dopo (scheda tecnica di vernakalant, 4.2, 4.3). Rene: nessun aggiustamento (scheda tecnica di vernakalant, 4.2).", true);
@@ -854,23 +972,33 @@ html.js.motore-ko #nomotore{display:block}
     if (s.cad || s.sca) perche.push("coronaropatia");
     if (am.indicato) b += esito('<span class="mid">Amiodarone e.v.</span>' + corPill("I", "A") + muted("con " + perche.join(", "))) + AMIT + passo("Con ipertrofia ventricolare sinistra severa, HFrEF o coronaropatia, <b>accettando che la conversione tardi</b> " + corPill("I", "A") + pgs(R17) + ".");
     else b += esito('<span class="mid">Amiodarone e.v.</span>' + chip("kx", "senza classe qui") + muted("la Rec. Table 17 lo raccomanda con ipertrofia severa, HFrEF o coronaropatia")) + AMIT;
-    b += passo("<b>300 mg e.v. in 30–60 min</b>, poi <b>900–1200 mg e.v. nelle 24 h</b> (o 200 mg per os tre volte al giorno per 4 settimane); successo 44%, da 8–12 h a qualche giorno" + pgs(T13) + ". Flebite: una grossa vena periferica, non oltre 24 h e.v., meglio con pompa volumetrica; ipotensione, bradicardia o BAV, QT lungo; molte interazioni" + pgs(T13) + ". Rene: nessun aggiustamento, escrezione renale trascurabile (scheda tecnica di amiodarone, 5.2).", am.indicato);
-    if (am.tiro) b += nota("", "Ipertiroidismo: amiodarone <b>solo se non c'è un'altra opzione</b>, per il rischio di tireotossicosi" + pgs(T13) + ".");
+    b += passo((nm ? "<b>Amiodarone e.v.</b>" + mgNo() + "; successo 44%" : "<b>300 mg e.v. in 30–60 min</b>, poi <b>900–1200 mg e.v. nelle 24 h</b> (o 200 mg per os tre volte al giorno per 4 settimane); successo 44%") + ", da 8–12 h a qualche giorno" + pgs(T13) + ". Flebite: una grossa vena periferica, non oltre 24 h e.v., meglio con pompa volumetrica; ipotensione, bradicardia o BAV, QT lungo; molte interazioni" + pgs(T13) + ". Rene: nessun aggiustamento, escrezione renale trascurabile (scheda tecnica di amiodarone per os, 5.2); per la via e.v. la scheda chiede cautela con i grandi volumi nell'insufficienza renale, per il rischio di accumulo dell'alcol benzilico e di acidosi metabolica (scheda tecnica di amiodarone e.v., 4.4).", am.indicato);
+    if (am.tiro) b += nota("", "Ipertiroidismo: amiodarone <b>solo se non c'è un'altra opzione</b>, per il rischio di tireotossicosi" + pgs(T13) + ". Accanto, la scheda tecnica controindica i «distiroidismi in corso o risolti» (scheda tecnica di amiodarone e.v., 4.3): l'esito non cambia, la scelta resta clinica.");
     if (!ic.ok && !f.ve.ok && !am.indicato && (ic.no.length || ic.rene.noto)) b += nota("", "Flecainide, propafenone e vernakalant sono esclusi, e per questo cuore la Rec. Table 17 non dà una classe all'amiodarone né all'ibutilide: la scelta è clinica.");
     h += b + "</div>";
 
     /* ibutilide */
     b = '<div class="blk">';
     var IBIT = italia("<b>non più in commercio dal 31/08/2026</b>");
-    if (f.ib.no.length) b += esito('<span class="mid">Ibutilide e.v.</span>' + chip("k4", "esclusa")) + IBIT + passo("Esclusa per " + f.ib.no.join(", ") + pgs(T13) + ".");
+    if (f.ib.no.length) b += esito('<span class="mid">Ibutilide e.v.</span>' + chip("k4", "esclusa")) + IBIT + passo("Esclusa per " + motivi(f.ib.no) + ".");
     else {
       b += esito('<span class="mid">Ibutilide e.v.</span>' + chip("kx", "nessuna classe") + muted("la Rec. Table 17 non la nomina")) + IBIT;
-      var cl = rn.cl.reale !== null ? r1(rn.cl.reale) : null;
-      if (p === null) b += passo("1 mg in 10 min, 0,01 mg/kg sotto i 60 kg" + pgs(T13) + ": serve il peso.");
+      var cl = rn.cl.reale !== null ? clV(rn.cl.reale) : null;
+      var IBCO = "Controindicata con il QT oltre 440 ms, con lo scompenso sintomatico, con l'infarto da meno di 1 mese, con la TV polimorfa o le torsioni di punta in anamnesi, con potassio o magnesio bassi, con gli antiaritmici di classe I o III in corso e con la grave compromissione epatica (scheda tecnica di ibutilide, 4.3). Torsioni, potassio, magnesio, antiaritmici in corso e fegato qui non hanno una casella: si guardano a parte.";
+      var IBRE = "In unità coronarica, ECG per almeno 4 h: QT lungo e torsioni di punta" + pgs(T13) + ". Rene: nessun aggiustamento, con dati fra 21 e 140 mL/min (scheda tecnica di ibutilide, 4.2)";
+      if (nm) b += passo("<b>Ibutilide e.v.</b>" + mgNo() + "; successo 31–51% in 30–90 min" + pgs(T13) + ". " + IBRE + ".");
+      // Come il Tool Flutter: senza clearance «—», sotto 21 mL/min nessuna dose (scelta in blocco 13, 08/11/2026).
+      else if (cl === null) b += passo('<b>Dose</b> — <span class="muted">serve la clearance (passo 5): sotto 21 mL/min nessun dato (scheda tecnica di ibutilide, 4.2)</span>');
+      else if (cl < SOGLIE.ibuDati) b += passo('<b>Dose</b> — <span class="muted">ClCr ' + nf(cl, 1) + " mL/min, sotto 21: nessun dato, la clearance è stata studiata fra 21 e 140 mL/min (scheda tecnica di ibutilide, 4.2): nessuna dose, decide lo specialista</span>");
+      else if (p === null) b += passo("1 mg in 10 min, 0,01 mg/kg sotto i 60 kg" + pgs(T13) + ": serve il peso.");
       else {
         var id = dosiIbu(p);
-        b += passo("<b>" + nd(id.mg) + " mg</b> in 10 min (" + (id.perKg ? "0,01 mg/kg sotto i 60 kg" : "1 mg dai 60 kg") + "); se serve, 1 mg in 10 min dopo 10–20 min" + (id.perKg ? " — sotto i 60 kg la Tab. 13 non dice se la seconda dose si riduce " + dv() : "") + pgs(T13) + "; successo 31–51% in 30–90 min" + pgs(T13) + ". In unità coronarica, ECG per almeno 4 h: QT lungo e torsioni di punta" + pgs(T13) + ". Rene: nessun aggiustamento, con dati fra 21 e 140 mL/min (scheda tecnica di ibutilide, 4.2)" + (cl !== null && cl < SOGLIE.ibuDati ? "; <b>qui la clearance è sotto 21: nessun dato</b> " + dv() : "") + ".");
+        b += passo("<b>" + nd(id.mg) + " mg</b> in 10 min (" + (id.perKg ? "0,01 mg/kg sotto i 60 kg" : "1 mg dai 60 kg") + ")" +
+          (id.perKg ? "; se serve, dopo 10–20 min, una seconda dose di <b>" + nd(id.seconda) + " mg</b> in 10 min: la ESC 2024 scrive 1 mg" + pgs(T13) + ", la scheda una seconda dose senza dire quanta (4.2): lo strumento tiene la più bassa"
+                    : "; se serve, 1 mg in 10 min dopo 10–20 min" + pgs(T13)) +
+          "; successo 31–51% in 30–90 min" + pgs(T13) + ". " + IBRE + ". Dopo cardiochirurgia la scheda tecnica dà metà dose: 0,5 mg dai 60 kg, 0,005 mg/kg sotto (scheda tecnica di ibutilide, 4.2).");
       }
+      b += passo(IBCO);
     }
     h += b + "</div>";
     return h;
@@ -893,7 +1021,14 @@ html.js.motore-ko #nomotore{display:block}
     el("outDopo").innerHTML = disegnaDopo(s, d);
     el("outRene").innerHTML = disegnaRene(s, rn);
     el("outFarm").innerHTML = disegnaFarm(s, rn, st, f);
-    el("outElet").innerHTML = s.wpw ? nota("stop", "<b>Pre-eccitazione</b>: la riga qui sopra sui farmaci che facilitano la cardioversione non vale per la FA preeccitata. L'amiodarone vi è " + corPill("III", "B") + pgs(V690) + ", e nella FA preeccitata le due linee guida non parlano di farmaci per facilitare la cardioversione elettrica" + pgs(V6902 + "; " + P7071) + ".") : "";
+    el("rigaEta").innerHTML = minore(s) ? nota("stop", "Sotto i 18 anni le classi sono quelle dell'adulto, la fonte non tratta il bambino: decide lo specialista.") : "";
+    el("rigaEta").className = minore(s) ? "" : "hide";
+    el("nAdulto").innerHTML = minore(s) ? " Nell'adulto: la fonte non tratta il bambino." : "";
+    el("txFacilita").innerHTML = facilita(s);
+    // Con la pre-eccitazione la nota che toglie l'amiodarone; a casella vuota e senza la conferma del passo 6
+    // la pre-eccitazione non e' esclusa (scelta in blocco 16, 08/11/2026). Con la sindrome del QT lungo l'amiodarone non c'e' piu'.
+    el("outElet").innerHTML = s.wpw ? nota("stop", "<b>Pre-eccitazione</b>: la riga qui sopra sui farmaci che facilitano la cardioversione non vale per la FA preeccitata. L'amiodarone vi è " + corPill("III", "B") + pgs(V690) + ", e nella FA preeccitata le due linee guida non parlano di farmaci per facilitare la cardioversione elettrica" + pgs(V6902 + "; " + P7071) + ".")
+      : (!s.lqts && !s.valutati ? nota("", "<b>Preeccitazione non esclusa</b>: nella FA preeccitata l'amiodarone e.v. è " + corPill("III", "B") + pgs(V691) + "; fra le terapie croniche, senza dire la via, non è raccomandato, " + corPill("III", "B") + pgs(V690) + ": la riga qui sopra è per bocca.") : "");
 
     /* incoerenze */
     function inc(tocca, x) { return nota(tocca ? "" : "spenta", (tocca ? "<b>Tocca questo caso.</b> " : "") + x); }
@@ -904,9 +1039,9 @@ html.js.motore-ko #nomotore{display:block}
       inc(d.facoltativa, "<b>Anticoagulante dopo la cardioversione.</b> La Rec. Table 15 lo vuole per almeno 4 settimane in tutti " + corPill("I", "B") + pgs(R15) + "; la Fig. 12 e il testo lo rendono facoltativo con esordio sicuramente &lt;24 h e nessun fattore di rischio tromboembolico" + pgs(F12 + "; " + P55) + ". Lo strumento, come la scheda, prende la lettura più prudente: 4 settimane a tutti.") +
       inc(!!(d.lungo && d.lungo.uno), "<b>CHA₂DS₂-VA 1 e anticoagulante a lungo termine.</b> Dopo la cardioversione la Rec. Table 15 vuole l'anticoagulante a lungo termine con fattori di rischio tromboembolico, qualunque sia il ritmo " + corPill("I", "B") + pgs(R15) + ", e il testo dice «qualunque fattore di rischio»" + pgs(P55) + "; per decidere l'avvio, un CHA₂DS₂-VA di 1 è " + corPill("IIa", "C") + pgs(R6) + ", e la Fig. 12 rimanda al rischio della sezione 6" + pgs(F12) + ". Lo strumento indica il lungo termine e mostra le due classi: la decisione resta condivisa. La scheda non dichiara questa differenza.") +
       inc(okF && ri.noto, "<b>La soglia renale degli IC.</b> La Tab. 13 scrive «CrCl &lt;35 mL/min/1,73 m²»: una clearance con l'unità di un eGFR, senza dire quale stima usare" + pgs(T13) + ". Lo strumento esclude flecainide e propafenone se è sotto 35 una delle due: la Cockcroft-Gault sul peso reale o l'eGFR del laboratorio.") +
-      inc(okF && ri.noto && ri.min <= 35, "<b>Flecainide e rene: fonte e scheda tecnica.</b> La fonte la esclude sotto 35" + pgs(T13) + "; la scheda tecnica la ammette con ClCr ≤35 a dose ridotta — per os 100 mg/die, e.v. ogni dose dimezzata, con i livelli plasmatici (4.2); quella a rilascio prolungato scrive «≤20 ml/min/m²». Lo strumento segue la fonte sotto 35, e a 35 esatto dimezza come la scheda tecnica.") +
+      (minore(s) ? "" : inc(okF && ri.noto && ri.min <= 35, "<b>Flecainide e rene: fonte e scheda tecnica.</b> La fonte la esclude sotto 35" + pgs(T13) + "; la scheda tecnica la ammette con ClCr ≤35 a dose ridotta — per os 100 mg/die, e.v. ogni dose dimezzata, con i livelli plasmatici (4.2); quella a rilascio prolungato scrive «≤20 ml/min/m²». Lo strumento segue la fonte sotto 35, e a 35 esatto dimezza come la scheda tecnica.")) +
       inc(okF && f.am.indicato, "<b>Amiodarone e.v.: quale vena.</b> La Tab. 13 vuole una grossa vena periferica e non oltre 24 h e.v." + pgs(T13) + "; la Tab. 12, per la frequenza, preferibilmente un catetere venoso centrale" + pgs(T12) + ". Due indicazioni diverse nella stessa fonte: la scelta è clinica.") +
-      inc(okF && f.ic.ok, "<b>Propafenone e.v.: dose e tempi.</b> La Tab. 13 dà 1,5–2 mg/kg in 10 min" + pgs(T13) + "; la scheda tecnica 1 mg/kg in 3–5 min, fino a 2 mg/kg, con almeno 90–120 min fra due iniezioni (4.2). Lo strumento mostra la dose della fonte; la forma e.v. non è più in commercio in Italia.") +
+      (minore(s) ? "" : inc(okF && f.ic.ok, "<b>Propafenone e.v.: dose e tempi.</b> La Tab. 13 dà 1,5–2 mg/kg in 10 min" + pgs(T13) + "; la scheda tecnica 1 mg/kg in 3–5 min, fino a 2 mg/kg, con almeno 90–120 min fra due iniezioni (4.2). Lo strumento mostra la dose della fonte; la forma e.v. non è più in commercio in Italia.")) +
       inc(okF && s.durata === "gt48" && (f.ic.ok || f.ve.ok), "<b>«Recente insorgenza».</b> La Rec. Table 17 dà flecainide, propafenone e vernakalant e.v. nella FA di recente insorgenza senza definirla in ore" + pgs(R17) + "; la scheda tecnica del vernakalant la limita a ≤7 giorni fuori dalla cardiochirurgia (4.1). Con esordio oltre 48 h o ignoto il giudizio è clinico.") +
       inc(st.cod === "tre_sett", "<b>L'attesa oltre le 48 h.</b> La Fig. 12 scrive «adatto all'attesa» senza un limite" + pgs(F12) + "; la Rec. Table 15 e la Fig. 4 limitano l'attesa della conversione spontanea alle 48 h dall'esordio" + pgs(R15 + "; " + F4) + ". Con esordio oltre 48 h o ignoto lo strumento non propone l'attesa: restano 3 settimane di anticoagulante e la cardioversione programmata.");
 
@@ -918,7 +1053,12 @@ html.js.motore-ko #nomotore{display:block}
     lim.push("Flutter atriale: la strada dell'anticoagulante vale anche per lui (Rec. Table 15), ma flecainide e propafenone <b>mai</b> per convertirlo (Tab. 13).");
     lim.push("Gravidanza: fuori da questo strumento.");
     lim.push("Pre-eccitazione (WPW, FA preeccitata): si segna nella sua casella del passo 6. Lo strumento presume che sia stata cercata sull'ECG di base: la casella vuota vale «assente» solo con la conferma del passo 6, e senza quella lo strumento non nomina un farmaco. Con la casella accesa la strada dell'anticoagulante resta e nessun farmaco per convertire è proposto (ESC 2019 TSV, pp. 690–692; ESC 2024, pp. 3370–3371): scheda 15, sezione 14. E la risposta «può aspettare» del passo 2 vale «no»: cardioversione precoce, con l'ETE se serve (ESC 2019 TSV, p. 690; scelta del medico, 07/11/2026).");
+    lim.push("Sindrome del QT lungo: si segna nella sua casella del passo 6, che non è la casella «QT lungo» di vernakalant e ibutilide. Con la casella accesa nessun farmaco per convertire né per facilitare: resta la cardioversione elettrica, e la strada dell'anticoagulante non cambia. Lo strumento non distingue il tipo: l'eccezione della flecainide nel tipo 3 resta scritta (ESC 2022, Tab. 8, p. 4036; ESC 2024, Tab. S6, supplementare, p. 12; scelta del medico, 08/11/2026).");
+    lim.push("Fegato, torsioni di punta in anamnesi, potassio e magnesio bassi, antiaritmici di classe I o III in corso: lo strumento non ha una casella, e la scheda tecnica controindica l'ibutilide in tutti questi casi (scheda tecnica di ibutilide, 4.3): si guardano a parte. L'infarto recente lo legge sulla casella della SCA nell'ultimo mese.");
+    lim.push("Età: sotto i 18 anni niente Cockcroft-Gault e niente mg; strada, classi e bersagli restano quelli dell'adulto, e la fonte non tratta il bambino: decide lo specialista (scelta del medico, 08/11/2026).");
     lim.push("Disponibilità in Italia al 03/10/2026 (Banca dati AIFA): flecainide fiale sì; propafenone e.v. cessato il 31/01/2025; vernakalant autorizzato, mai commercializzato; ibutilide cessata il 31/08/2026; amiodarone e.v., un prodotto cessato il 30/11/2025, altri in commercio.");
+    if (s.eta !== null && s.eta > SOGLIE.etaMax) lim.push("Età fuori scala (18–110 anni): la clearance non si calcola.");
+    if (s.fuori.length) lim.push("Valori fuori scala, non usati: " + s.fuori.join("; ") + ".");
     if (rn.cl.reale !== null && s.alt === null) lim.push("Altezza non indicata: il BMI non si calcola, e nell'obeso manca il valore sul peso aggiustato.");
     el("limiti").innerHTML = "<li>" + lim.join("</li><li>") + "</li>";
 
@@ -931,10 +1071,11 @@ html.js.motore-ko #nomotore{display:block}
     if (okF) { if (f.ic.ok) nomi.push("flecainide · propafenone"); if (f.ve.ok) nomi.push("vernakalant"); if (f.am.indicato) nomi.push("amiodarone"); }
     // Pre-eccitazione: non «nessuno», perché la ESC 2019 non vieta gli IC né l'ibutilide
     // nella FA preeccitata (p. 691): la scelta è fuori da questo strumento.
-    if (f.stato === "wpw") bar("barFarm", f.emo === "instabile" ? "kx" : "k4", f.emo === "instabile" ? "elettrica" : "fuori dallo strumento: preeccitazione");
+    if (f.stato === "wpw") bar("barFarm", f.emo === "instabile" ? "kx" : "k4", f.emo === "instabile" ? "elettrica" : (f.lqts ? "resta l'elettrica: preeccitazione e QT lungo" : "fuori dallo strumento: preeccitazione"));
+    else if (f.stato === "lqts") bar("barFarm", f.emo === "instabile" ? "kx" : "k4", f.emo === "instabile" ? "elettrica" : "QT lungo: resta l'elettrica");
     else bar("barFarm", f.stato === "iiic" ? "k4" : (okF ? (nomi.length ? "k1" : "k3") : "kx"), f.stato === "iiic" ? "III C" : (f.stato === "instabile" ? "elettrica" : (okF ? (nomi.length ? nomi.join(" · ") : "nessuno con classe") : "—")));
     var rr = rn.cl.reale;
-    bar("barRene", rr !== null ? (r1(rr) < 35 ? "k4" : (r1(rr) <= 35 ? "k3" : "k1")) : (rn.egfr !== null ? (rn.egfr < 35 ? "k4" : "k1") : "kx"), rr !== null ? "ClCr " + nf(rr, 1) : (rn.egfr !== null ? "eGFR " + nf(rn.egfr, 0) : "—"));
+    bar("barRene", rr !== null ? (clV(rr) < 35 ? "k4" : (clV(rr) <= 35 ? "k3" : "k1")) : (rn.egfr !== null ? (rn.egfr < 35 ? "k4" : "k1") : "kx"), rr !== null ? "ClCr " + nf(clV(rr), 1) : (rn.egfr !== null ? "eGFR " + nf(rn.egfr, 0) : "—"));
   }
 
   document.addEventListener("input", disegna);
@@ -950,7 +1091,7 @@ html.js.motore-ko #nomotore{display:block}
     window.scrollTo(0, 0);
   });
 
-  window.CARDIOVERSIONE_MOTORE = { clearance:clearance, rene:rene, reneIC:reneIC, latiOpposti:latiOpposti, oacOk:oacOk, strada:strada, dopo:dopo, farmaci:farmaci, dosiFlec:dosiFlec, dosiProp:dosiProp, dosiVern:dosiVern, dosiIbu:dosiIbu };
+  window.CARDIOVERSIONE_MOTORE = { minore:minore, clearance:clearance, rene:rene, reneIC:reneIC, latiOpposti:latiOpposti, oacOk:oacOk, strada:strada, dopo:dopo, farmaci:farmaci, dosiFlec:dosiFlec, dosiProp:dosiProp, dosiVern:dosiVern, dosiIbu:dosiIbu };
   disegna();
 })();
 </script>
